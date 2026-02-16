@@ -1,14 +1,19 @@
-from qgis.core import QgsRasterLayer, QgsProject, QgsRectangle,QgsVectorLayer,QgsTask, QgsApplication,QgsSettings
-
-from qgis.core import (
+from qgis.core import ( # type: ignore
     QgsCategorizedSymbolRenderer, 
     QgsRendererCategory, 
     QgsFillSymbol,
     QgsVectorDataProvider,
-    
-)
-from qgis.PyQt.QtGui import QColor
-from qgis.PyQt.QtWidgets import QInputDialog
+    QgsRasterLayer, 
+    QgsProject, 
+    QgsRectangle,
+    QgsVectorLayer,
+    QgsTask, 
+    QgsApplication,
+    QgsSettings
+)  
+
+from qgis.PyQt.QtGui import QColor # type: ignore
+from qgis.PyQt.QtWidgets import QInputDialog # type: ignore
 import random
 
 class PluginTask(QgsTask):
