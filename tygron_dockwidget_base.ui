@@ -216,6 +216,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="SessionLayerButton">
+          <property name="text">
+           <string>Layers</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="SessionKillButton">
           <property name="font">
            <font>
@@ -240,6 +247,13 @@
       <widget class="QWidget" name="overlaysPage">
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
+         <widget class="QLabel" name="OverlaysTextLabel">
+          <property name="text">
+           <string>Add standard layers</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QScrollArea" name="OverlaysQuickImports">
           <property name="widgetResizable">
            <bool>true</bool>
@@ -248,9 +262,9 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-29</y>
+             <y>-58</y>
              <width>228</width>
-             <height>128</height>
+             <height>157</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -282,12 +296,70 @@
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QPushButton" name="OverlaysQuickMeasures">
+              <property name="text">
+               <string>Measures</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="OverlaysReturnButton">
+          <property name="text">
+           <string>Return</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="LayerControls">
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <widget class="QLabel" name="LayerControlFocusText">
+          <property name="text">
+           <string>Focused Layer</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="LayerControlLayerName">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>LAYER_NAME</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="LayerControlStartEdit">
+          <property name="text">
+           <string>Start Editing Layer</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="LayerControlCommit">
+          <property name="text">
+           <string>Commit Changes</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="LayerControlReturnButton">
           <property name="text">
            <string>Return</string>
           </property>

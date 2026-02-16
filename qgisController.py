@@ -3,9 +3,12 @@ from qgis.core import QgsRasterLayer, QgsProject, QgsRectangle,QgsVectorLayer,Qg
 from qgis.core import (
     QgsCategorizedSymbolRenderer, 
     QgsRendererCategory, 
-    QgsFillSymbol
+    QgsFillSymbol,
+    QgsVectorDataProvider,
+    
 )
 from qgis.PyQt.QtGui import QColor
+from qgis.PyQt.QtWidgets import QInputDialog
 import random
 
 class PluginTask(QgsTask):
@@ -41,8 +44,9 @@ class QGISController():
         password = settings.value("tygron/password", "")
         return username, password
 
-    def __init__(self):
+    def __init__(self,widget):
         self.tasks = []
+        self.widget = widget
         pass
 
     def addLayer(self,layer):
@@ -74,6 +78,33 @@ class QGISController():
         layer.triggerRepaint()
         if hasattr(self.controller, 'iface'):
             self.controller.iface.layerTreeView().refreshLayerSymbology(layer.id())
+
+    def make_layer_editable(self, layer):
+        if layer.dataProvider().capabilities() & QgsVectorDataProvider.EditingCapabilities:
+            layer.startEditing()
+            print("Layer is now editable. Move a polygon to test!")
+        else:
+            print("This WFS provider doesn't seem to allow editing.")
+
+    def select_option(self,options = ["Yes","No"]):
+        
+        # Arguments: parent, title, label, list, current_index, editable
+        item, ok = QInputDialog.getItem(
+            self.widget, "Select Type", "Choose a building function:", 
+            options, 0, False
+        )
+        
+        if ok and item:
+            return item
+        return options[0]
+
+    def commit_layer_edits(self, layer):
+        if layer.isEditable():
+            success = layer.commitChanges()
+            
+            if not success:
+                print(f"Error saving: {layer.commitErrors()}")
+                layer.rollBack()
 
     def loadWFSVector(self,uri,QGISName,classifyKey=None):
         def run():

@@ -28,6 +28,9 @@ class OverlaysPage:
     def addBuildings(self):
         uri = self.controller.client.session.get_wfs_uri("buildings")
         self.controller.qgis.loadWFSVector(uri,"Buildings Vector","function")
+    def addMeasures(self):
+        uri = self.controller.client.session.get_wfs_uri("measures")
+        self.controller.qgis.loadWFSVector(uri,"Measures Vector")
 
     def __init__(self,widget,controller):
         self.widget = widget
@@ -39,3 +42,4 @@ class OverlaysPage:
         self.get("QuickWater").clicked.connect(self.addWater)
         self.get("QuickBuildings").clicked.connect(self.addBuildings)
         self.get("QuickTerrain").clicked.connect(self.addTerrain)
+        self.get("QuickMeasures").clicked.connect(self.addMeasures)

@@ -26,6 +26,8 @@ class SessionPage:
 
     def toOverlays(self):
         self.controller.switch_to_page(self.controller.overlays)
+    def toLayers(self):
+        self.controller.switch_to_page(self.controller.layers)
 
     def __init__(self,widget,controller):
         self.widget = widget
@@ -34,3 +36,5 @@ class SessionPage:
         self.get("ReturnButton").clicked.connect(self.returnToHome)
         self.get("KillButton").clicked.connect(self.killProject)
         self.get("Overlays").clicked.connect(self.toOverlays)
+        self.get("LayerButton").clicked.connect(self.toLayers)
+

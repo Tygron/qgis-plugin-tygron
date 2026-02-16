@@ -58,6 +58,7 @@ class Session:
             f"{WFS_URL}?token={self.api_key}",
             f"&typename={type_name}",
             "&version=1.1.0",
+            "&override=true"
             "&srsname=EPSG:3857",
             "&ignoreAxisOrientation=1"
         ]

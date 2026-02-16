@@ -6,6 +6,7 @@ from .login import LoginPage
 from .projectSelection import ProjectSelectionPage
 from .session import SessionPage
 from .overlays import OverlaysPage
+from .layers import LayersPage
 
 class widgetController:
 
@@ -14,13 +15,16 @@ class widgetController:
 
     def __init__(self,plugin):
         self.widget = plugin.dockwidget
+        self.iface = plugin.iface
+
         self.login = LoginPage(self.widget,self)
         self.home = HomePage(self.widget,self)
         self.openProject = ProjectSelectionPage(self.widget,self)
         self.session = SessionPage(self.widget,self)
         self.overlays = OverlaysPage(self.widget,self)
+        self.layers = LayersPage(self.widget,self)
         self.client = plugin.client
-        self.qgis = QGISController()
+        self.qgis = QGISController(self.widget)
 
         self.start()
 
