@@ -24,6 +24,7 @@ class Session:
         "anchor_y": 0,
     }
 
+    # attempt to fetch data with api key to check validity
     def validate_session(self,key = None):
         self.api_key = key
         self.session_id = None
@@ -39,6 +40,8 @@ class Session:
         return self.in_session
 
 
+    # authenticate with login data to fetch api key with sessionId
+    # connects authenticated account with session, must be disconnected later on.
     def join_live_session(self,sessionId):
         if not self.client.authenticated:
             return
@@ -79,7 +82,7 @@ class Session:
         ]
         return "".join(params)
 
-
+    # starts session, does not join it yet.
     def start_inactive_session(self,project_name):
         if not self.client.authenticated:
             return
@@ -98,6 +101,7 @@ class Session:
         
         return sessionId
     
+    # start and join inactive session
     def start_and_join_inactive_session(self,project_name):
         if not self.client.authenticated:
             return
@@ -115,8 +119,12 @@ class Session:
         self.api_key = None
         self.session_id = None
 
+    # disconnects logged in client from session
+    # no use if connected solely through api key
     def leave(self):
-        
+        if not self.client.authenticated:
+            return
+
         if not self.in_session:
             return
         
@@ -139,7 +147,10 @@ class Session:
             self.domain = session_data.get("projectDomain")
             return session_data
 
-
+    # disconnects logged in client from session
+    # fully closes session on server, project will have to be restarted to join again
+    # kicks out other clients
+    # no use if connected solely through api key
     def kill(self):
         if not self.in_session:
             return

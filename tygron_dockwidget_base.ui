@@ -30,7 +30,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>9</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="LoginPage">
        <property name="enabled">
@@ -231,6 +231,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="SessionKillButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="font">
            <font>
             <weight>75</weight>
@@ -244,6 +247,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="SessionReturnButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Leave Session</string>
           </property>

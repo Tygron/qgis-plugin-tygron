@@ -43,6 +43,7 @@ class TygronClient():
         if not (username and password):
             return
         
+        # auth argument of request didnt work so whatever bro
         auth_header = {"Authorization":f"Basic {base64.b64encode(f"{username}:{password}".encode()).decode()}"}
 
         loginKey = self.apiPost(url="event/user/get_my_login_key/?f=JSON",header=auth_header)

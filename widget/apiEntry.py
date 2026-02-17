@@ -8,8 +8,10 @@ class APIEntryPage:
     def get(self,instanceName):
         return getattr(self.widget,f"{self.instancePrefix}{instanceName}", None)
 
+    # attempt to fetch data with api key
     def onValidate(self):
-        key = self.get("KeyEntry").text()
+        # strip slop from the string
+        key = self.get("KeyEntry").text().strip()
 
         success = self.controller.client.session.validate_session(key)
 

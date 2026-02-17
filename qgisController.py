@@ -100,11 +100,9 @@ class QGISController():
         else:
             print("This WFS provider doesn't seem to allow editing.")
 
-    def select_option(self,options = ["Yes","No"]):
-        
-        # Arguments: parent, title, label, list, current_index, editable
+    def select_option(self,text = "Choose Option:",options = ["Yes","No"]):
         item, ok = QInputDialog.getItem(
-            self.widget, "Select Type", "Choose a building function:", 
+            self.widget, "Select", text, 
             options, 0, False
         )
         

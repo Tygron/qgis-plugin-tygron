@@ -21,6 +21,7 @@ class widgetController:
         self.widget = plugin.dockwidget
         self.iface = plugin.iface
 
+        # create objects for other pages
         self.login = LoginPage(self.widget,self)
         self.home = HomePage(self.widget,self)
         self.apiEntry = APIEntryPage(self.widget,self)
@@ -31,6 +32,7 @@ class widgetController:
         self.newProjectChoice = NewProjectChoicePage(self.widget,self)
         self.newProject = NewProject(self.widget,self)
         self.fromTemplate = FromTemplate(self.widget,self)
+
         self.client = plugin.client
         self.qgis = QGISController(self.widget,self.iface)
 
