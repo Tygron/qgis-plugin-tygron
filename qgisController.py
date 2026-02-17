@@ -9,7 +9,8 @@ from qgis.core import ( # type: ignore
     QgsVectorLayer,
     QgsTask, 
     QgsApplication,
-    QgsSettings
+    QgsSettings,
+    Qgis
 )  
 
 from qgis.PyQt.QtGui import QColor # type: ignore
@@ -37,6 +38,13 @@ class PluginTask(QgsTask):
 
 class QGISController():
 
+    def ErrorMessage(self,text):
+        self.iface.messageBar().pushMessage(
+            "Error", 
+            text, 
+            level=Qgis.Critical, 
+            duration=5
+        )
 
     def save_credentials(self, username, password):
         settings = QgsSettings()
@@ -49,9 +57,10 @@ class QGISController():
         password = settings.value("tygron/password", "")
         return username, password
 
-    def __init__(self,widget):
+    def __init__(self,widget,iface):
         self.tasks = []
         self.widget = widget
+        self.iface = iface
         pass
 
     def addLayer(self,layer):
@@ -81,8 +90,8 @@ class QGISController():
         layer.setRenderer(renderer)
         
         layer.triggerRepaint()
-        if hasattr(self.controller, 'iface'):
-            self.controller.iface.layerTreeView().refreshLayerSymbology(layer.id())
+        self.iface.layerTreeView().refreshLayerSymbology(layer.id())
+
 
     def make_layer_editable(self, layer):
         if layer.dataProvider().capabilities() & QgsVectorDataProvider.EditingCapabilities:

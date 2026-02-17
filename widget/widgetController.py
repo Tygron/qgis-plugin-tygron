@@ -10,6 +10,7 @@ from .layers import LayersPage
 from .newProjectChoice import NewProjectChoicePage
 from .newProject import NewProject
 from .fromTemplate import FromTemplate
+from .apiEntry import APIEntryPage
 
 class widgetController:
 
@@ -22,6 +23,7 @@ class widgetController:
 
         self.login = LoginPage(self.widget,self)
         self.home = HomePage(self.widget,self)
+        self.apiEntry = APIEntryPage(self.widget,self)
         self.openProject = ProjectSelectionPage(self.widget,self)
         self.session = SessionPage(self.widget,self)
         self.overlays = OverlaysPage(self.widget,self)
@@ -30,7 +32,7 @@ class widgetController:
         self.newProject = NewProject(self.widget,self)
         self.fromTemplate = FromTemplate(self.widget,self)
         self.client = plugin.client
-        self.qgis = QGISController(self.widget)
+        self.qgis = QGISController(self.widget,self.iface)
 
         self.start()
 
@@ -43,7 +45,7 @@ class widgetController:
         instance.open(**kwargs)
 
     def start(self):
-        self.switch_to_page(self.login)
+        self.switch_to_page(self.apiEntry)
 
 
     

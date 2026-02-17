@@ -18,5 +18,6 @@ class FromTemplate:
     def __init__(self,widget,controller):
         self.widget = widget
         self.controller = controller
-
+ 
         self.get("ReturnButton").clicked.connect(self.returnToHome)
+ 

@@ -30,7 +30,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>7</number>
+       <number>9</number>
       </property>
       <widget class="QWidget" name="LoginPage">
        <property name="enabled">
@@ -437,6 +437,90 @@
           </property>
           <property name="text">
            <string>Return</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="FromTemplate">
+       <layout class="QVBoxLayout" name="verticalLayout_11">
+        <item>
+         <widget class="QgsFilterLineEdit" name="FromTemplateNameEEntry">
+          <property name="qgisRelation" stdset="0">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="FromTemplateReturnButton">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Return</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="TokenEntryPage">
+       <layout class="QVBoxLayout" name="verticalLayout_12">
+        <item>
+         <widget class="QLabel" name="TokenEntryLabel">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Enter session API key:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="TokenEntryInstruction1">
+          <property name="text">
+           <string>You can find the api key as follows:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="TokenEntryInstruction2">
+          <property name="text">
+           <string>Tools (Ribbon) -&gt; API Overview (Click)</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="TokenEntryInstruction3">
+          <property name="text">
+           <string>Copy the long string of characters in bold.</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QgsPasswordLineEdit" name="TokenEntryKeyEntry"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="TokenEntryValidate">
+          <property name="text">
+           <string>Validate</string>
           </property>
          </widget>
         </item>

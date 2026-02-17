@@ -24,6 +24,21 @@ class Session:
         "anchor_y": 0,
     }
 
+    def validate_session(self,key = None):
+        self.api_key = key
+        self.session_id = None
+        
+        if key is not None:
+            # make api call to fetch data
+            details = self.load_project_details()
+            if details:
+                self.session_id = details.get("id")
+
+        self.in_session = self.session_id is not None
+
+        return self.in_session
+
+
     def join_live_session(self,sessionId):
         if not self.client.authenticated:
             return
@@ -122,6 +137,7 @@ class Session:
         if session_data:
             self.project_name = session_data.get("name")
             self.domain = session_data.get("projectDomain")
+            return session_data
 
 
     def kill(self):
