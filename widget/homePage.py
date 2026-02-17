@@ -12,6 +12,9 @@ class HomePage:
     def openProject(self):
         self.controller.switch_to_page(self.controller.openProject,presetProjectName = self.controller.client.account_details.get("last_project"))
 
+    def newProject(self):
+        self.controller.switch_to_page(self.controller.newProjectChoice)
+
     def updateLabels(self):
         details = self.controller.client.fetch_account_details()
 
@@ -27,3 +30,4 @@ class HomePage:
 
         self.widget.LogoutButton.clicked.connect(self.onLogout)
         self.widget.HomeOpenProject.clicked.connect(self.openProject)
+        self.widget.NewProjectButton.clicked.connect(self.newProject)

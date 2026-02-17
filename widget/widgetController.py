@@ -7,6 +7,9 @@ from .projectSelection import ProjectSelectionPage
 from .session import SessionPage
 from .overlays import OverlaysPage
 from .layers import LayersPage
+from .newProjectChoice import NewProjectChoicePage
+from .newProject import NewProject
+from .fromTemplate import FromTemplate
 
 class widgetController:
 
@@ -23,6 +26,9 @@ class widgetController:
         self.session = SessionPage(self.widget,self)
         self.overlays = OverlaysPage(self.widget,self)
         self.layers = LayersPage(self.widget,self)
+        self.newProjectChoice = NewProjectChoicePage(self.widget,self)
+        self.newProject = NewProject(self.widget,self)
+        self.fromTemplate = FromTemplate(self.widget,self)
         self.client = plugin.client
         self.qgis = QGISController(self.widget)
 
