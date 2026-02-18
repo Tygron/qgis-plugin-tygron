@@ -11,13 +11,10 @@ class SessionPage:
     def get(self,instanceName):
         return getattr(self.widget,f"{self.instancePrefix}{instanceName}", None)
 
-    def killProject(self):
-        if self.controller.client.session.kill():
-            self.controller.switch_to_page(self.controller.home)
-    
     def returnToHome(self):
-        if self.controller.client.session.leave():
-            self.controller.switch_to_page(self.controller.home)
+        self.controller.client.session.validate_session(None)
+        
+        self.controller.switch_to_page(self.controller.apiEntry)
 
     def open(self,**kwargs):
         self.controller.client.session.load_project_details()
@@ -34,7 +31,6 @@ class SessionPage:
         self.controller = controller
 
         self.get("ReturnButton").clicked.connect(self.returnToHome)
-        self.get("KillButton").clicked.connect(self.killProject)
         self.get("Overlays").clicked.connect(self.toOverlays)
         self.get("LayerButton").clicked.connect(self.toLayers)
 

@@ -30,7 +30,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>10</number>
       </property>
       <widget class="QWidget" name="LoginPage">
        <property name="enabled">
@@ -230,25 +230,16 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="SessionKillButton">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
+         <widget class="QPushButton" name="SessionMeasures">
           <property name="text">
-           <string>Kill Session</string>
+           <string>Measures</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="SessionReturnButton">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="text">
            <string>Leave Session</string>
@@ -276,7 +267,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>228</width>
+             <width>226</width>
              <height>157</height>
             </rect>
            </property>
@@ -528,6 +519,50 @@
           <property name="text">
            <string>Validate</string>
           </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="Measures">
+       <layout class="QVBoxLayout" name="verticalLayout_13">
+        <item>
+         <widget class="QLabel" name="MeasuresLabel">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Measures</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="MeasuresButton">
+          <property name="text">
+           <string>Create New</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="MeasuresScroll">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>239</width>
+             <height>79</height>
+            </rect>
+           </property>
+          </widget>
          </widget>
         </item>
        </layout>
