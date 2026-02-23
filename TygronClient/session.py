@@ -12,7 +12,7 @@ class Session:
     client = None
     project_name = None
     domain = None
-
+    stakeholders = []
     clients = []
     dimensions = {
         "min_x": 0,
@@ -138,6 +138,45 @@ class Session:
         if success is not None:
             self.clear_credentials()
             return True
+        
+    def get_current_stakeholder(self):
+        pass
+
+    def add_measure_layer(self,stakeholderID):
+        payload = json.dumps([
+            stakeholderID,
+        ])
+        success = self.client.apiPost(url=f"session/event/editormeasure/add/?token={self.api_key}",payload=payload)
+
+        if success:
+            print(success)
+
+    def fetch_measure_data(self,id = None):
+        if id is None:
+            return
+        
+        url = f"session/items/measures/{id}/?crs=3857&token={self.api_key}&f=JSON"
+        result = self.client.apiGet(url=url)
+
+        return result
+
+
+    def fetch_measures(self):
+        measures = self.client.apiGet(url=f"session/items/measures/?f=JSON&token={self.api_key}")
+        return measures
+        
+    def update_project(self):
+        self.load_stakeholders()
+        self.load_project_details()
+        
+    def load_stakeholders(self):
+        stakeholders = self.client.apiGet(url=f"session/items/stakeholders/?f=JSON&token={self.api_key}")
+
+        if stakeholders:
+            self.stakeholders.clear()
+            for _s in stakeholders:
+                self.stakeholders.append(_s)
+
         
     def load_project_details(self):
         session_data = self.client.apiGet(url=f"session/info/?f=JSON&token={self.api_key}")

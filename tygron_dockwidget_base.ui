@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>277</width>
-    <height>188</height>
+    <height>195</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>10</number>
+       <number>11</number>
       </property>
       <widget class="QWidget" name="LoginPage">
        <property name="enabled">
@@ -267,7 +267,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>226</width>
+             <width>98</width>
              <height>157</height>
             </rect>
            </property>
@@ -553,16 +553,61 @@
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_2">
+          <widget class="QWidget" name="MeasuresWidget">
            <property name="geometry">
             <rect>
              <x>0</x>
              <y>0</y>
              <width>239</width>
-             <height>79</height>
+             <height>57</height>
             </rect>
            </property>
+           <layout class="QVBoxLayout" name="MeasuresLayout"/>
           </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="MeasuresReturn">
+          <property name="text">
+           <string>Return</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="MeasureOverview">
+       <layout class="QVBoxLayout" name="verticalLayout_14">
+        <item>
+         <widget class="QLabel" name="MOverviewLabel">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="MOverviewStakeholder">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="MOverviewReturn">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
          </widget>
         </item>
        </layout>

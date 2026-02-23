@@ -13,18 +13,18 @@ class SessionPage:
 
     def returnToHome(self):
         self.controller.client.session.validate_session(None)
-        
         self.controller.switch_to_page(self.controller.apiEntry)
 
     def open(self,**kwargs):
-        self.controller.client.session.load_project_details()
-
+        self.controller.client.session.update_project()
         self.get("NameLabel").setText(f"Session {self.controller.client.session.project_name} ({self.controller.client.session.domain})")
 
     def toOverlays(self):
         self.controller.switch_to_page(self.controller.overlays)
     def toLayers(self):
         self.controller.switch_to_page(self.controller.layers)
+    def toMeasures(self):
+        self.controller.switch_to_page(self.controller.measures)
 
     def __init__(self,widget,controller):
         self.widget = widget
@@ -33,4 +33,5 @@ class SessionPage:
         self.get("ReturnButton").clicked.connect(self.returnToHome)
         self.get("Overlays").clicked.connect(self.toOverlays)
         self.get("LayerButton").clicked.connect(self.toLayers)
+        self.get("Measures").clicked.connect(self.toMeasures)
 

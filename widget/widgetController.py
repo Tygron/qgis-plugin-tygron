@@ -11,6 +11,8 @@ from .newProjectChoice import NewProjectChoicePage
 from .newProject import NewProject
 from .fromTemplate import FromTemplate
 from .apiEntry import APIEntryPage
+from .measures import MeasuresPage
+from .measureOverview import MeasureOverviewPage
 
 class widgetController:
 
@@ -32,6 +34,8 @@ class widgetController:
         self.newProjectChoice = NewProjectChoicePage(self.widget,self)
         self.newProject = NewProject(self.widget,self)
         self.fromTemplate = FromTemplate(self.widget,self)
+        self.measures = MeasuresPage(self.widget,self)
+        self.measureOverview = MeasureOverviewPage(self.widget,self)
 
         self.client = plugin.client
         self.qgis = QGISController(self.widget,self.iface)
