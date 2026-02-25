@@ -267,7 +267,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
+             <width>93</width>
              <height>157</height>
             </rect>
            </property>
@@ -602,6 +602,20 @@
            <set>Qt::AlignCenter</set>
           </property>
          </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLineEdit" name="MOverviewName"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="MOverviewChangeName">
+            <property name="text">
+             <string>Set Name</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <widget class="QPushButton" name="MOverviewReturn">

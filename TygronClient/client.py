@@ -20,11 +20,11 @@ class TygronClient():
     session = None
 
     def _process_fetch(self,response):
-        if response.status_code == 200:
+        if response.status_code == 200 or response.status_code == 204:
             try:
                 return response.json()
             except:
-                return response
+                return True
         else:
             print(f"Error {response.status_code}")
             return None

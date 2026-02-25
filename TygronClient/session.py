@@ -148,8 +148,13 @@ class Session:
         ])
         success = self.client.apiPost(url=f"session/event/editormeasure/add/?token={self.api_key}",payload=payload)
 
-        if success:
-            print(success)
+        return success
+    
+    def change_measure_name(self,measureId,newName):
+        payload = json.dumps([
+            measureId,newName
+        ])
+        return self.client.apiPost(url=f"session/event/editormeasure/set_name/?token={self.api_key}",payload=payload)
 
     def fetch_measure_data(self,id = None):
         if id is None:
