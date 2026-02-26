@@ -20,9 +20,9 @@ class SessionPage:
         self.get("NameLabel").setText(f"Session {self.controller.client.session.project_name} ({self.controller.client.session.domain})")
 
     def toOverlays(self):
-        self.controller.switch_to_page(self.controller.overlays)
+        self.controller.switch_to_page(self.controller.overlaysOverview)
     def toLayers(self):
-        self.controller.switch_to_page(self.controller.layers)
+        self.controller.switch_to_page(self.controller.overlays)
     def toMeasures(self):
         self.controller.switch_to_page(self.controller.measures)
 

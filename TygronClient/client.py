@@ -2,6 +2,7 @@ import base64
 import json
 import requests
 from .session import Session
+from . import constants
 
 ROOT_URL = "https://engine.tygron.com/api/"
 
@@ -11,7 +12,7 @@ class TygronClient():
     login_key = None
     authentication_header = None
     authenticated = False
-
+    constants = constants
     account_details = {
         "last_project": None,
         "first_name": None,

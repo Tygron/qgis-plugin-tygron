@@ -13,6 +13,7 @@ from .fromTemplate import FromTemplate
 from .apiEntry import APIEntryPage
 from .measures import MeasuresPage
 from .measureOverview import MeasureOverviewPage
+from .overlaysOverview import OverlaysOverviewPage
 
 class widgetController:
 
@@ -36,6 +37,7 @@ class widgetController:
         self.fromTemplate = FromTemplate(self.widget,self)
         self.measures = MeasuresPage(self.widget,self)
         self.measureOverview = MeasureOverviewPage(self.widget,self)
+        self.overlaysOverview = OverlaysOverviewPage(self.widget,self)
 
         self.client = plugin.client
         self.qgis = QGISController(self.widget,self.iface)
