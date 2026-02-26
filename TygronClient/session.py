@@ -156,6 +156,13 @@ class Session:
         ])
         return self.client.apiPost(url=f"session/event/editormeasure/set_name/?token={self.api_key}",payload=payload)
 
+    def add_overlay(self,overlayType):
+        payload = json.dumps([
+            overlayType
+        ])
+        return self.client.apiPost(url=f"session/event/editoroverlay/add/?token={self.api_key}",payload=payload)
+
+
     def fetch_measure_data(self,id = None):
         if id is None:
             return
