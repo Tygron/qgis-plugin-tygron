@@ -146,7 +146,7 @@
         <layer enabled="1" class="SimpleFill" id="{fe807d21-8dfe-4ea6-91ee-b7f5160e2016}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
-            <Option name="color" type="QString" value="163,202,109,255,hsv:0.2361111111111111,0.46274509803921571,0.792156862745098,1"/>
+            <Option name="color" type="QString" value="122,160,202,255,hsv:0.58772222222222226,0.39378957808804455,0.792156862745098,1"/>
             <Option name="joinstyle" type="QString" value="bevel"/>
             <Option name="offset" type="QString" value="0,0"/>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
@@ -262,9 +262,6 @@
         </layer>
       </symbol>
     </source-symbol>
-    <colorramp name="[source]" type="randomcolors">
-      <Option/>
-    </colorramp>
     <rotation/>
     <sizescale/>
     <data-defined-properties>
