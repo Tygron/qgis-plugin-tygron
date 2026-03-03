@@ -15,7 +15,7 @@ from qgis.core import ( # type: ignore
 
 from qgis.PyQt.QtGui import QColor # type: ignore
 from qgis.PyQt.QtWidgets import QInputDialog # type: ignore
-import random
+import random,os
 
 class PluginTask(QgsTask):
     def __init__(self, description, background_fn, callback_fn=None):
@@ -45,6 +45,26 @@ class QGISController():
             level=Qgis.Critical, 
             duration=5
         )
+
+    def apply_style_to_layer(self, layer, style_name="Buildings"):
+        style_path = self.get_style_path(style_name)
+        
+        if os.path.exists(style_path):
+            success, message = layer.loadNamedStyle(style_path)
+            
+            if success:
+                layer.triggerRepaint()
+                if self.controller.iface:
+                    self.controller.iface.layerTreeView().refreshLayerSymbology(layer.id())
+                print(f"Applied style: {style_name}")
+            else:
+                print(f"Failed to apply style: {message}")
+        else:
+            print(f"Style file not found at: {style_path}")
+
+    def get_style_path(self, style_name):
+        plugin_dir = os.path.dirname(__file__)
+        return os.path.join(plugin_dir, 'LayerStyles', f'{style_name}.qml')
 
     def save_credentials(self, username, password):
         settings = QgsSettings()
@@ -118,13 +138,13 @@ class QGISController():
                 print(f"Error saving: {layer.commitErrors()}")
                 layer.rollBack()
 
-    def loadWFSVector(self,uri,QGISName,classifyKey=None):
+    def loadWFSVector(self,uri,QGISName,callback = None):
         def run():
             return QgsVectorLayer(uri, QGISName, "wfs")
         def complete(result):
             self.addLayer(result)
-            if classifyKey is not None:
-                self.classify(result,classifyKey)
+            if callback is not None:
+                callback(result)
 
             if task in self.tasks:
                 self.tasks.remove(task)

@@ -25,6 +25,26 @@ class SessionPage:
         self.controller.switch_to_page(self.controller.overlays)
     def toMeasures(self):
         self.controller.switch_to_page(self.controller.measures)
+    def toEdits(self):
+        self.controller.switch_to_page(self.controller.layers)
+
+    def importProject(self):
+        #self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("buildings"),"Buildings Vector","function")
+
+        # Step one, add base layer. using the provided gray layer for soft colors and readability
+        self.controller.qgis.loadWMSLayer(self.controller.client.session.get_wms_uri("GRAY"),"GrayLayer")
+
+        # step two, load in buildings
+        def classifyBuildings(layer):
+            self.controller.qgis.apply_style_to_layer(layer,"Buildings")
+        self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("buildings"),"Buildings Vector",classifyBuildings)
+
+        # step three, load in terrain
+        def classifyTerrain(layer):
+            self.controller.qgis.apply_style_to_layer(layer,"Terrain")
+        self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("terrains"),"Terrain Vector",classifyTerrain)
+
+
 
     def __init__(self,widget,controller):
         self.widget = widget
@@ -34,4 +54,6 @@ class SessionPage:
         self.get("Overlays").clicked.connect(self.toOverlays)
         self.get("LayerButton").clicked.connect(self.toLayers)
         self.get("Measures").clicked.connect(self.toMeasures)
+        self.get("EditButton").clicked.connect(self.toEdits)
+        self.get("Import").clicked.connect(self.importProject)
 

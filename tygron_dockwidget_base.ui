@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>341</width>
-    <height>197</height>
+    <height>254</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="LoginPage">
        <property name="enabled">
@@ -216,6 +216,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="SessionImport">
+          <property name="text">
+           <string>Import Project</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="SessionOverlays">
           <property name="text">
            <string>Overlays</string>
@@ -226,6 +233,13 @@
          <widget class="QPushButton" name="SessionLayerButton">
           <property name="text">
            <string>Layers</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="SessionEditButton">
+          <property name="text">
+           <string>Edit Layers</string>
           </property>
          </widget>
         </item>
@@ -267,7 +281,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>226</width>
+             <width>98</width>
              <height>157</height>
             </rect>
            </property>
@@ -558,8 +572,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>67</width>
-             <height>18</height>
+             <width>98</width>
+             <height>28</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="MeasuresLayout"/>
@@ -678,8 +692,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>239</width>
-             <height>57</height>
+             <width>98</width>
+             <height>28</height>
             </rect>
            </property>
           </widget>
