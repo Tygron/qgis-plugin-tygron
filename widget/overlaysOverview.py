@@ -19,8 +19,11 @@ class OverlaysOverviewPage:
         selected_option = self.get("TypeSelect").currentText()
         self.controller.client.session.add_overlay(selected_option)
 
-    def selectOverlay(self,name):
-        print(name)
+        self.reloadOverlays()
+
+    def selectOverlay(self,name,title):
+        uri = self.controller.client.session.get_wms_uri(name)
+        self.controller.qgis.loadWMSLayer(uri,title)
 
     def reloadOverlays(self):
 
@@ -34,7 +37,7 @@ class OverlaysOverviewPage:
         for overlay in available_overlays:
             btn = QPushButton(f"{overlay.get("title")} ({overlay.get("name")})")
         
-            btn.clicked.connect(lambda _, name=overlay.get("name"): self.selectOverlay(name))   
+            btn.clicked.connect(lambda _, name=overlay.get("name"),title=overlay.get("title"): self.selectOverlay(name,title))   
 
             layout.addWidget(btn)
            
