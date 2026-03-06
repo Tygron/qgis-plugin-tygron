@@ -10,8 +10,11 @@ from qgis.core import ( # type: ignore
     QgsTask, 
     QgsApplication,
     QgsSettings,
-    Qgis
+    Qgis,
 )  
+from qgis.PyQt.QtCore import QTimer
+import time
+
 
 from qgis.PyQt.QtGui import QColor # type: ignore
 from qgis.PyQt.QtWidgets import QInputDialog # type: ignore
@@ -145,18 +148,26 @@ class QGISController():
                 print(f"Error saving: {layer.commitErrors()}")
                 layer.rollBack()
 
-    def loadWFSVector(self,uri,QGISName,callback = None):
+    def loadWFSVector(self, uri, QGISName, callback=None):
         def run():
-            return QgsVectorLayer(uri, QGISName, "wfs")
-        def complete(result):
-            self.addLayer(result)
-            if callback is not None:
-                callback(result)
+            time.sleep(0.1) 
+            return True
+        
+        def complete(success):
+            if success:
+                layer = QgsVectorLayer(uri, QGISName, "wfs")
+                
+                if layer.isValid():
+                    self.addLayer(layer)
+                    if callback is not None:
+                        QTimer.singleShot(100, lambda: callback(layer))
+                else:
+                    print(f"Failed to load WFS layer: {QGISName}")
 
             if task in self.tasks:
                 self.tasks.remove(task)
         
-        task = PluginTask(f"Loading WFS: '{QGISName}'",run,complete)
+        task = PluginTask(f"Loading WFS: '{QGISName}'", run, complete)
         self.tasks.append(task)
         QgsApplication.taskManager().addTask(task)
 
