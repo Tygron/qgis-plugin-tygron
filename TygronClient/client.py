@@ -25,7 +25,7 @@ class TygronClient():
             try:
                 return response.json()
             except:
-                return True
+                return response
         else:
             print(f"Error {response.status_code}")
             return None
@@ -33,8 +33,10 @@ class TygronClient():
     def _url(self,append):
         return f"{ROOT_URL}{append}"
     
-    def apiGet(self,url = None,payload = None,header = False):
+    def apiGet(self,url = None,payload = None,header = False,raw_url = False):
         urlToSend = self._url(url)
+        if raw_url:
+            urlToSend = url
 
         return self._process_fetch(requests.get(urlToSend,headers=header,data=payload))
     

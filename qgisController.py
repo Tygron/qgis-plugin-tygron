@@ -46,6 +46,12 @@ class QGISController():
             duration=5
         )
 
+    def clearContainer(self,layout):
+        while layout.count():
+            child = layout.takeAt(0)
+            if child.widget():
+                child.widget().deleteLater()
+
     def apply_style_to_layer(self, layer, style_name="Buildings"):
         style_path = self.get_style_path(style_name)
         
@@ -108,6 +114,7 @@ class QGISController():
 
         renderer = QgsCategorizedSymbolRenderer(field_name, categories)
         layer.setRenderer(renderer)
+        layer.setOpacity(0.15)
         
         layer.triggerRepaint()
         self.iface.layerTreeView().refreshLayerSymbology(layer.id())

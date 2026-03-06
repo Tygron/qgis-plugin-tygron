@@ -1,4 +1,5 @@
 import json
+import xml.etree.ElementTree as ET
 
 WMS_URL = "https://engine.tygron.com/web/wms"
 WFS_URL = "https://engine.tygron.com/api/session/wfs"
@@ -118,6 +119,26 @@ class Session:
         self.in_session = False
         self.api_key = None
         self.session_id = None
+
+    def fetch_available_overlays(self):
+        fetched_xml = self.client.apiGet(url = f"https://engine.tygron.com/web/wms?REQUEST=GetCapabilities&token={self.api_key}",raw_url=True)
+        if fetched_xml is None:
+            return
+        
+        root = ET.fromstring(fetched_xml.content)
+        namespace = {'wms': 'http://www.opengis.net/wms'}
+        
+        overlays = []
+        
+        for layer in root.findall(".//wms:Layer[wms:Name]", namespace):
+            name = layer.find("wms:Name", namespace).text
+            title = layer.find("wms:Title", namespace).text
+            
+            if name:
+                overlays.append({"name": name, "title": title})
+                
+        return overlays
+    
 
     # disconnects logged in client from session
     # no use if connected solely through api key
