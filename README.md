@@ -32,3 +32,15 @@ To interact with a Tygron project, you need to authenticate via a **Session API 
 
 * Open QGIS and launch the Tygron Plugin.
 * **Paste** the copied key into the plugin window to enter your session.
+
+### 3. Import Project
+
+* It is recommended to start by doing a generic import of your project data.
+* Once connected to the session, select "Import Project", the following data will be loaded in:
+* - Standard Map
+* - Buildings
+* - Neighborhoods
+* - Areas
+* - Terrain
+
+* You may import any overlays from your project by navigating to Overlays, and selecting any layer you'd like to import.

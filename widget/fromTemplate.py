@@ -9,7 +9,7 @@ class FromTemplate:
     def get(self,instanceName):
         return getattr(self.widget,f"{self.instancePrefix}{instanceName}", None)
 
-    def returnToHome(self):
+    def returnToHome(self):        
         self.controller.switch_to_page(self.controller.home)
 
     def open(self,**kwargs):
