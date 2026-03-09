@@ -5,7 +5,6 @@ from qgis.core import ( # type: ignore
     QgsVectorDataProvider,
     QgsRasterLayer, 
     QgsProject, 
-    QgsRectangle,
     QgsVectorLayer,
     QgsTask, 
     QgsApplication,
