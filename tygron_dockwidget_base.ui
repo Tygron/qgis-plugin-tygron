@@ -30,7 +30,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>12</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="LoginPage">
        <property name="enabled">
@@ -373,6 +373,13 @@
          <widget class="QPushButton" name="LayerControlCommit">
           <property name="text">
            <string>Commit Changes</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="LayerControlCancelButton">
+          <property name="text">
+           <string>Cancel Changes</string>
           </property>
          </widget>
         </item>

@@ -40,9 +40,11 @@ class TygronClient():
 
         return self._process_fetch(requests.get(urlToSend,headers=header,data=payload))
     
-    def apiPost(self,url = None,payload = None,header = False):
+    def apiPost(self,url = None,payload = None,header = False, raw_url = False):
         urlToSend = self._url(url)
-
+        if raw_url:
+            urlToSend = url
+            
         return self._process_fetch(requests.post(urlToSend,headers=header,data=payload))
         
     def log_in(self,username,password):
