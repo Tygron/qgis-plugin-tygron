@@ -13,14 +13,10 @@ from qgis.core import ( # type: ignore
     Qgis,
 )  
 
-from qgis.PyQt.QtWidgets import QMessageBox # type: ignore
+from qgis.PyQt.QtWidgets import QMessageBox,QInputDialog # type: ignore
 from qgis.PyQt.QtCore import QTimer # type: ignore
-import time
-
-
 from qgis.PyQt.QtGui import QColor # type: ignore
-from qgis.PyQt.QtWidgets import QInputDialog # type: ignore
-import random,os
+import random,os,time
 
 class PluginTask(QgsTask):
     def __init__(self, description, background_fn, callback_fn=None):
