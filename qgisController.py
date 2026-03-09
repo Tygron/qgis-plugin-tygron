@@ -171,6 +171,25 @@ class QGISController():
         self.tasks.append(task)
         QgsApplication.taskManager().addTask(task)
 
+    def validate_layer_changes(self,layer):
+        for feature in layer.getFeatures():
+            if not feature.geometry().isGeosValid():
+                print("nooo nooo nooo")
+                return False
+        return True
+    
+    def enable_topology(self):
+        project = QgsProject.instance()    
+        project.setTopologicalEditing(True)
+
+    def reload_target_wms(self, name):
+        layers = QgsProject.instance().mapLayersByName(name)
+        if layers:
+            wms_layer = layers[0]
+            wms_layer.triggerRepaint() 
+            print(f"Refreshed WMS Layer: {name}")
+
+
     def loadWMSLayer(self,uri,QGISName):
         layer = QgsRasterLayer(uri, QGISName, "wms")
         self.addLayer(layer)

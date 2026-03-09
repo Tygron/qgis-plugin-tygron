@@ -17,12 +17,15 @@ class LayersPage:
             return
         
         self.controller.qgis.make_layer_editable(self.focusedLayer)
+        self.controller.qgis.enable_topology()
 
     def commit(self):
         if self.focusedLayer is None:
             return
         
-        self.controller.qgis.commit_layer_edits(self.focusedLayer)
+        if self.controller.qgis.validate_layer_changes(self.focusedLayer):
+            self.controller.qgis.commit_layer_edits(self.focusedLayer)
+            self.controller.qgis.reload_target_wms("Gray")
 
 
     def returnToSession(self):
@@ -39,6 +42,14 @@ class LayersPage:
             label.setText(self.focusedLayer.name())
         else:
             label.setText("None")
+
+    def cancelChanges(self):
+        if not self.focusedLayer:
+            return
+        if self.focusedLayer.isEditable():
+            success = self.focusedLayer.rollBack()
+            if success:
+                self.focusedLayer.triggerRepaint()
             
     def open(self,**kwargs):
         current = self.controller.iface.layerTreeView().currentLayer()
@@ -53,3 +64,4 @@ class LayersPage:
         self.get("ReturnButton").clicked.connect(self.returnToSession)
         self.get("StartEdit").clicked.connect(self.start_edit)
         self.get("Commit").clicked.connect(self.commit)
+        self.get("CancelButton").clicked.connect(self.cancelChanges)
