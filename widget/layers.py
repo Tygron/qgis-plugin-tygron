@@ -46,6 +46,9 @@ class LayersPage:
     def cancelChanges(self):
         if not self.focusedLayer:
             return
+        if not self.controller.qgis.confirmBox("Cancel Changes?","Are you sure you want to revert your changes on this layer?"):
+            return
+        
         if self.focusedLayer.isEditable():
             success = self.focusedLayer.rollBack()
             if success:

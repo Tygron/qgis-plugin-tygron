@@ -12,6 +12,8 @@ from qgis.core import ( # type: ignore
     QgsSettings,
     Qgis,
 )  
+
+from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.PyQt.QtCore import QTimer
 import time
 
@@ -181,6 +183,17 @@ class QGISController():
     def enable_topology(self):
         project = QgsProject.instance()    
         project.setTopologicalEditing(True)
+
+    def confirmBox(self,mainText = "Are you sure?",subText = ""):
+        reply = QMessageBox.question(
+            self.widget, 
+            mainText,
+            subText,
+            QMessageBox.Yes | QMessageBox.No, 
+            QMessageBox.No
+        )
+
+        return reply == QMessageBox.Yes
 
     def reload_target_wms(self, name):
         layers = QgsProject.instance().mapLayersByName(name)
