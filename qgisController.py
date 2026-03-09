@@ -13,8 +13,8 @@ from qgis.core import ( # type: ignore
     Qgis,
 )  
 
-from qgis.PyQt.QtWidgets import QMessageBox
-from qgis.PyQt.QtCore import QTimer
+from qgis.PyQt.QtWidgets import QMessageBox # type: ignore
+from qgis.PyQt.QtCore import QTimer # type: ignore
 import time
 
 

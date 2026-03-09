@@ -370,6 +370,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QCheckBox" name="LayerControlSnapping">
+          <property name="text">
+           <string>Enable grid snapping</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="LayerControlCommit">
           <property name="text">
            <string>Commit Changes</string>

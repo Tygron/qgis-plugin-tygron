@@ -53,6 +53,14 @@ class LayersPage:
             success = self.focusedLayer.rollBack()
             if success:
                 self.focusedLayer.triggerRepaint()
+
+    def on_snap_toggle(self,state):
+        is_enabled = state == 2
+        if is_enabled:
+            print("Snapping has been enabled.")
+        else:
+            print("Snapping disabled.")
+
             
     def open(self,**kwargs):
         current = self.controller.iface.layerTreeView().currentLayer()
@@ -68,3 +76,4 @@ class LayersPage:
         self.get("StartEdit").clicked.connect(self.start_edit)
         self.get("Commit").clicked.connect(self.commit)
         self.get("CancelButton").clicked.connect(self.cancelChanges)
+        self.get("Snapping").stateChanged.connect(self.on_snap_toggle)
