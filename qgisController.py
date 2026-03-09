@@ -176,7 +176,7 @@ class QGISController():
     def validate_layer_changes(self,layer):
         for feature in layer.getFeatures():
             if not feature.geometry().isGeosValid():
-                print("nooo nooo nooo")
+                self.ErrorMessage("Could not submit layer changes!")
                 return False
         return True
     
