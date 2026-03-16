@@ -31,7 +31,7 @@ class PluginTask(QgsTask):
         except Exception as e:
             print(f"Task failed: {e}")
             return False
-
+    
     def finished(self, result):
         if result and self.callback_fn:
             self.callback_fn(self.data)
@@ -62,11 +62,9 @@ class QGISController():
                 layer.triggerRepaint()
                 if self.controller.iface:
                     self.controller.iface.layerTreeView().refreshLayerSymbology(layer.id())
-                print(f"Applied style: {style_name}")
-            else:
-                print(f"Failed to apply style: {message}")
-        else:
-            print(f"Style file not found at: {style_path}")
+                    return
+        print(f"Could not load style {style_name}")
+        
 
     def get_style_path(self, style_name):
         plugin_dir = os.path.dirname(__file__)
@@ -123,9 +121,8 @@ class QGISController():
     def make_layer_editable(self, layer):
         if layer.dataProvider().capabilities() & QgsVectorDataProvider.EditingCapabilities:
             layer.startEditing()
-            print("Layer is now editable. Move a polygon to test!")
         else:
-            print("This WFS provider doesn't seem to allow editing.")
+            print("WFS Can not be edited")
 
     def select_option(self,text = "Choose Option:",options = ["Yes","No"]):
         item, ok = QInputDialog.getItem(
@@ -159,7 +156,7 @@ class QGISController():
                     if callback is not None:
                         QTimer.singleShot(100, lambda: callback(layer))
                 else:
-                    print(f"Failed to load WFS layer: {QGISName}")
+                    print(f"Failed to load WFS layer {QGISName}")
 
             if task in self.tasks:
                 self.tasks.remove(task)
@@ -196,6 +193,17 @@ class QGISController():
             wms_layer = layers[0]
             wms_layer.triggerRepaint() 
             print(f"Refreshed WMS Layer: {name}")
+
+    def fetch_attributeForm(self,formName):
+        if not formName:
+            return
+        plugin_dir = os.path.dirname(__file__)
+        return os.path.join(plugin_dir, 'AttributeForms', f'{formName}.ui')
+    
+    def setLayerForm(self,layer,formName):
+        config = layer.editFormConfig()
+        config.setInitFunction("buildings_form_init")
+
 
 
     def loadWMSLayer(self,uri,QGISName):
