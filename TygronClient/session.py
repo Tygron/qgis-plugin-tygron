@@ -4,6 +4,9 @@ import xml.etree.ElementTree as ET
 WMS_URL = "https://engine.tygron.com/web/wms"
 WFS_URL = "https://engine.tygron.com/api/session/wfs"
 
+from . import constants
+
+
 class Session:
 
     api_key = None
@@ -72,6 +75,15 @@ class Session:
             f"&layers={layer_name}&styles=default"
             f"&url={WMS_URL}?token={self.api_key}"
     )
+    def get_functions(self):
+        
+        functions = self.client.apiGet(url = f"session/items/functions/?f=JSON&token={self.api_key}")
+
+        constants.FUNCTIONS_TYPE = functions
+            
+        return functions
+
+
     def get_wfs_uri(self, type_name):
         params = [
             f"{WFS_URL}?token={self.api_key}",

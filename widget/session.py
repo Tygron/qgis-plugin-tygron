@@ -30,11 +30,14 @@ class SessionPage:
 
     def importProject(self):
         # Step one, add base layer. using the provided gray layer for soft colors and readability
+        self.controller.client.session.get_functions()
+
         self.controller.qgis.loadWMSLayer(self.controller.client.session.get_wms_uri("GRAY"),"GrayLayer")
 
         # step two, load in buildings
         def classifyBuildings(layer):
             self.controller.qgis.apply_style_to_layer(layer,"Buildings")
+            self.controller.qgis.setup_custom_ui("buildings",layer)
         self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("buildings"),"Buildings Vector",classifyBuildings)
 
         # step three, load in terrain
@@ -46,7 +49,7 @@ class SessionPage:
         # step four, load in areas
         self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("areas"),"Areas Vector")
 
-        # step four, load in areas
+        # step four, load in neighborhoods
         def classifyNeighborhoods(layer):
             self.controller.qgis.apply_style_to_layer(layer,"Neighborhoods")
             self.controller.qgis.classify(layer,"name")

@@ -23,6 +23,7 @@ class OverlaysOverviewPage:
 
     def selectOverlay(self,name,title):
         uri = self.controller.client.session.get_wms_uri(name)
+        print(f"URL: {uri}")
         self.controller.qgis.loadWMSLayer(uri,title)
 
     def reloadOverlays(self):

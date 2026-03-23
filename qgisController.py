@@ -10,12 +10,17 @@ from qgis.core import ( # type: ignore
     QgsApplication,
     QgsSettings,
     Qgis,
+    QgsEditFormConfig,
 )  
 
 from qgis.PyQt.QtWidgets import QMessageBox,QInputDialog # type: ignore
 from qgis.PyQt.QtCore import QTimer # type: ignore
 from qgis.PyQt.QtGui import QColor # type: ignore
 import random,os,time
+
+plugin_dir = os.path.dirname(__file__)
+
+logic_path = os.path.normpath(os.path.join(plugin_dir, "form_logic.py")).replace("\\", "/")
 
 class PluginTask(QgsTask):
     def __init__(self, description, background_fn, callback_fn=None):
@@ -207,6 +212,27 @@ class QGISController():
 
 
     def loadWMSLayer(self,uri,QGISName):
+        print(QGISName)
         layer = QgsRasterLayer(uri, QGISName, "wms")
+        print(layer)
         self.addLayer(layer)
+
+    def setup_custom_ui(self,fileName,layer):
+        ui_path = os.path.normpath(os.path.join(plugin_dir, "AttributeForms", f"{fileName}.ui"))
+        ui_path = ui_path.replace("\\", "/")
+        config = layer.editFormConfig()
+        
+        # Set the layout to use your .ui file
+        config.setLayout(QgsEditFormConfig.UiFileLayout)
+        config.setUiForm(ui_path)
+
+        config.setInitCodeSource(QgsEditFormConfig.CodeSourceFile)
+        
+        # Link the Python logic
+        config.setInitFunction(fileName)
+        config.setInitFilePath(logic_path)
+        
+        layer.setEditFormConfig(config)
+
+        print("Loaded custom ui!")
 
