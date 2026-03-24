@@ -16,6 +16,11 @@ class MeasuresPage:
     def createMeasure(self):
         self.controller.client.session.add_measure_layer(0)
         self.open()
+
+    def importLayer(self):
+        print("Importing the shit")
+        self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("measures"),"Measures Vector")
+        
         
     def clearContainer(self,layout):
         # Clear existing buttons so they don't stack up
@@ -55,4 +60,5 @@ class MeasuresPage:
         self.controller = controller
         self.get("Return").clicked.connect(self.returnToSession)
         self.get("Button").clicked.connect(self.createMeasure)
+        self.get("Import").clicked.connect(self.importLayer)
 
