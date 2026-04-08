@@ -21,9 +21,7 @@ class MeasuresPage:
         print("Importing the shit")
         self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("measures"),"Measures Vector")
         
-        
     def clearContainer(self,layout):
-        # Clear existing buttons so they don't stack up
         while layout.count():
             child = layout.takeAt(0)
             if child.widget():
