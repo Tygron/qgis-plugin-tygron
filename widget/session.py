@@ -1,5 +1,5 @@
 from ..TygronClient.client import *
-
+from qgis.core import QgsEditorWidgetSetup
 class SessionPage:
 
 
@@ -38,6 +38,22 @@ class SessionPage:
         def classifyBuildings(layer):
             self.controller.qgis.apply_style_to_layer(layer,"Buildings")
             self.controller.qgis.setup_custom_ui("buildings",layer)
+
+            all_functions = self.controller.client.constants.FUNCTIONS_TYPE
+            value_map = {f"{item.get('id')} - {item.get('name')}": str(item.get('id')) for item in all_functions}
+
+            # 3. Zoek de index van het veld "function"
+            field_index = layer.fields().indexOf("function")
+            
+            if field_index != -1:
+                # 4. Stel de widget in als een Value Map
+                layer.setEditorWidgetSetup(field_index, QgsEditorWidgetSetup('ValueMap', {'map': value_map}))
+                print(f"Dropdown opties geladen voor {len(value_map)} functies.")
+
+                # how can i load all the options in a dropdown for the "function" attribute in the attribute form?
+
+
+
         self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("buildings"),"Buildings Vector",classifyBuildings)
 
         # step three, load in terrain

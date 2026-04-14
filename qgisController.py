@@ -11,11 +11,14 @@ from qgis.core import ( # type: ignore
     QgsSettings,
     Qgis,
     QgsEditFormConfig,
+    QgsNetworkAccessManager, 
+    QgsNetworkReplyContent
 )  
 
 from qgis.PyQt.QtWidgets import QMessageBox,QInputDialog # type: ignore
-from qgis.PyQt.QtCore import QTimer # type: ignore
+from qgis.PyQt.QtCore import QTimer,QUrl, QEventLoop # type: ignore
 from qgis.PyQt.QtGui import QColor # type: ignore
+from PyQt5.QtNetwork import QNetworkRequest
 import random,os,time
 
 plugin_dir = os.path.dirname(__file__)
@@ -93,7 +96,10 @@ class QGISController():
         pass
 
     def addLayer(self,layer):
-        if layer.isValid():
+        print(layer.isValid())
+        
+        if True: #layer.isValid():
+            
             QgsProject.instance().addMapLayer(layer)
             return layer
         
@@ -140,9 +146,11 @@ class QGISController():
         return options[0]
 
     def commit_layer_edits(self, layer):
+        print("Comitting!")
         if layer.isEditable():
+            print("Editable!")
             success = layer.commitChanges()
-            
+            print(success)
             if not success:
                 print(f"Error saving: {layer.commitErrors()}")
                 layer.rollBack()
@@ -199,6 +207,28 @@ class QGISController():
             wms_layer.triggerRepaint() 
             print(f"Refreshed WMS Layer: {name}")
 
+    def refreshWmsCache(self, wms_url):
+        """
+        Forceert QGIS om de GetCapabilities van de Tygron WMS opnieuw op te halen.
+        """
+        # 1. Bouw de volledige GetCapabilities URL
+        capabilities_url = f"{wms_url}&SERVICE=WMS&REQUEST=GetCapabilities"
+        
+        # 2. Gebruik de QgsNetworkAccessManager om de cache te omzeilen
+        nam = QgsNetworkAccessManager.instance()
+        request = QNetworkRequest(QUrl(capabilities_url))
+        
+        # Forceer herladen van het netwerk (Attribute: AlwaysNetwork)
+        request.setAttribute(QNetworkRequest.CacheLoadControlAttribute, QNetworkRequest.AlwaysNetwork)
+        
+        # 3. Voer de aanvraag synchroon uit zodat de rest van je code wacht op de refresh
+        loop = QEventLoop()
+        reply = nam.get(request)
+        reply.finished.connect(loop.quit)
+        loop.exec_()
+        
+        print("WMS Capabilities ververst voor Tygron.")
+
     def fetch_attributeForm(self,formName):
         if not formName:
             return
@@ -212,10 +242,11 @@ class QGISController():
 
 
     def loadWMSLayer(self,uri,QGISName):
-        print(QGISName)
+        print(f"Loading new layer {QGISName} at {uri}")
         layer = QgsRasterLayer(uri, QGISName, "wms")
         print(layer)
         self.addLayer(layer)
+        return layer
 
     def setup_custom_ui(self,fileName,layer):
         ui_path = os.path.normpath(os.path.join(plugin_dir, "AttributeForms", f"{fileName}.ui"))

@@ -22,8 +22,9 @@ class OverlaysOverviewPage:
         self.reloadOverlays()
 
     def selectOverlay(self,name,title):
+        self.controller.qgis.refreshWmsCache(f"https://engine.tygron.com/web/wms?token={self.controller.client.session.api_key}&")
+        result= self.controller.client.apiGet(url=f"https://engine.tygron.com/web/wms?REQUEST=GetCapabilities&token={self.controller.client.session.api_key}")
         uri = self.controller.client.session.get_wms_uri(name)
-        print(f"URL: {uri}")
         self.controller.qgis.loadWMSLayer(uri,title)
 
     def reloadOverlays(self):

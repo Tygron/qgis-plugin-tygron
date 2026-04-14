@@ -10,3 +10,60 @@ OVERLAYS_TYPE = [
 ]
 FUNCTIONS_TYPE = []
 
+BUILDING_ATTRIBUTE_GROUPING = {
+    "Floors & Height": [
+        "DEFAULT_FLOORS", 
+        "MAX_FLOORS", 
+        "MIN_FLOORS", 
+        "FLOOR_HEIGHT_M", 
+        "HEIGHT", 
+        "HEIGHT_OFFSET_M",
+        "ROOF_COLOR"
+    ],
+    "Traffic & Vehicles": [
+        "TRAFFIC_LANES", 
+        "JAM_FACTOR_CARS", 
+        "JAM_FACTOR_TRUCKS", 
+        "JAM_FACTOR_VANS", 
+        "NUM_CARS", 
+        "NUM_TRUCKS", 
+        "NUM_VANS", 
+        "NUM_LIGHT_VEHICLES_DYN",
+        "MAX_SPEED_DYNAMIC"
+    ],
+    "Category Weights": [
+        "EDUCATION_CATEGORY_WEIGHT", 
+        "HEALTHCARE_CATEGORY_WEIGHT", 
+        "LUXE_CATEGORY_WEIGHT", 
+        "NORMAL_CATEGORY_WEIGHT", 
+        "OFFICES_CATEGORY_WEIGHT", 
+        "OTHER_CATEGORY_WEIGHT", 
+        "SHOPPING_CATEGORY_WEIGHT", 
+        "SOCIAL_CATEGORY_WEIGHT"
+    ],
+    "Dimensions & Units": [
+        "BREEDTEOPENING", 
+        "HOOGTEOPENING", 
+        "LENGTE", 
+        "LUXE_UNIT_SIZE_M2", 
+        "NORMAL_UNIT_SIZE_M2", 
+        "SOCIAL_UNIT_SIZE_M2", 
+        "POPULATION_DESTINY_M2"
+    ],
+    "Hydraulic & Infrastructure": [
+        "CULVERT_DIAMETER", 
+        "HOOGTEBINNENONDERKANTBENEDENSTROOMS", 
+        "HOOGTEBINNENONDERKANTBOVENSTROOMS", 
+        "KERENDEHOOGTE",
+        "LEFT_SHIELD_HEIGHT", 
+        "LEFT_TO_SHIELD_DISTANCE", 
+        "RIGHT_SHIELD_HEIGHT", 
+        "RIGHT_TO_SHIELD_DISTANCE",
+        "TERRAIN_MIX"
+    ],
+    "Metadata": [
+        "CONSTRUCTION_FINISH_DATE", 
+        "NWB_ID"
+    ]
+}
+
