@@ -24,9 +24,7 @@
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt # type: ignore
 from qgis.PyQt.QtGui import QIcon# type: ignore
 from qgis.PyQt.QtWidgets import QAction# type: ignore
-# Initialize Qt resources from file resources.py
 from .resources import *
-# Import the code for the DockWidget
 from .tygron_dockwidget import TygronDockWidget
 import os.path
 
@@ -34,7 +32,6 @@ from .widget.widgetController import widgetController
 from .TygronClient.client import TygronClient
 
 class Tygron:
-    """QGIS Plugin Implementation."""
 
     def __init__(self, iface):
         """Constructor.
@@ -44,10 +41,7 @@ class Tygron:
             application at run time.
         :type iface: QgsInterface
         """
-        # Save reference to the QGIS interface
         self.iface = iface
-
-        # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
 
         # initialize locale

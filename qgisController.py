@@ -208,27 +208,19 @@ class QGISController():
             print(f"Refreshed WMS Layer: {name}")
 
     def refreshWmsCache(self, wms_url):
-        """
-        Forceert QGIS om de GetCapabilities van de Tygron WMS opnieuw op te halen.
-        """
-        # 1. Bouw de volledige GetCapabilities URL
+
         capabilities_url = f"{wms_url}&SERVICE=WMS&REQUEST=GetCapabilities"
         
-        # 2. Gebruik de QgsNetworkAccessManager om de cache te omzeilen
         nam = QgsNetworkAccessManager.instance()
         request = QNetworkRequest(QUrl(capabilities_url))
         
-        # Forceer herladen van het netwerk (Attribute: AlwaysNetwork)
         request.setAttribute(QNetworkRequest.CacheLoadControlAttribute, QNetworkRequest.AlwaysNetwork)
         
-        # 3. Voer de aanvraag synchroon uit zodat de rest van je code wacht op de refresh
         loop = QEventLoop()
         reply = nam.get(request)
         reply.finished.connect(loop.quit)
         loop.exec_()
         
-        print("WMS Capabilities ververst voor Tygron.")
-
     def fetch_attributeForm(self,formName):
         if not formName:
             return
@@ -253,13 +245,11 @@ class QGISController():
         ui_path = ui_path.replace("\\", "/")
         config = layer.editFormConfig()
         
-        # Set the layout to use your .ui file
         config.setLayout(QgsEditFormConfig.UiFileLayout)
         config.setUiForm(ui_path)
 
         config.setInitCodeSource(QgsEditFormConfig.CodeSourceFile)
         
-        # Link the Python logic
         config.setInitFunction(fileName)
         config.setInitFilePath(logic_path)
         
