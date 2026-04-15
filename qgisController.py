@@ -14,6 +14,7 @@ from qgis.core import ( # type: ignore
     QgsNetworkAccessManager, 
     QgsNetworkReplyContent
 )  
+from qgis.PyQt.QtWidgets import QAction
 
 from qgis.PyQt.QtWidgets import QMessageBox,QInputDialog # type: ignore
 from qgis.PyQt.QtCore import QTimer,QUrl, QEventLoop # type: ignore
@@ -94,6 +95,13 @@ class QGISController():
         self.widget = widget
         self.iface = iface
         pass
+
+    def enableVertexTool(self):
+        vertex_tool_action = self.iface.mainWindow().findChild(QAction, 'mActionVertexTool')
+        if vertex_tool_action:
+            vertex_tool_action.trigger()
+    def enableAddFeature(self):
+        self.iface.actionAddFeature().trigger()
 
     def addLayer(self,layer):
         print(layer.isValid())

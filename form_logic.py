@@ -12,7 +12,7 @@ def makeEntryForAttribute(attributeName: str, defaultValue: any, parent_widget: 
     
     line_edit = QLineEdit(row_container)
     line_edit.setText(str(defaultValue) if defaultValue is not None else "")
-
+    line_edit.setName(attributeName)
     layout.addWidget(label)
     layout.addItem(spacer) 
     layout.addWidget(line_edit)
@@ -82,9 +82,10 @@ def buildings(dialog, layer, feature):
             layout = QVBoxLayout(scrollbox)
             
             for attribute in attribute_cat[category_name]:
-                default_value = function_data["attributes"].get(attribute,"NULL")
-                subvalue = makeEntryForAttribute(attribute,default_value,scrollbox)
-                layout.addWidget(subvalue)
+                default_value = function_data["attributes"].get(attribute,None)
+                if default_value is not None:
+                    subvalue = makeEntryForAttribute(attribute,default_value,scrollbox)
+                    layout.addWidget(subvalue)
 
             attributeTabs.addTab(new_tab, category_name)        
 

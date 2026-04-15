@@ -54,6 +54,12 @@ class LayersPage:
             if success:
                 self.focusedLayer.triggerRepaint()
 
+    def editMode(self):
+        self.controller.qgis.enableVertexTool()
+    def drawMode(self):
+        self.controller.qgis.enableAddFeature()
+
+
     def on_snap_toggle(self,state):
         is_enabled = state == 2
         if is_enabled:
@@ -77,3 +83,6 @@ class LayersPage:
         self.get("Commit").clicked.connect(self.commit)
         self.get("CancelButton").clicked.connect(self.cancelChanges)
         self.get("Snapping").stateChanged.connect(self.on_snap_toggle)
+
+        self.get("Edit").clicked.connect(self.editMode)
+        self.get("Draw").clicked.connect(self.drawMode)

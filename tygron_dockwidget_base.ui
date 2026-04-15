@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>341</width>
-    <height>254</height>
+    <height>263</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>10</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="LoginPage">
        <property name="enabled">
@@ -231,6 +231,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="SessionLayerButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Layers</string>
           </property>
@@ -245,6 +248,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="SessionMeasures">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Measures</string>
           </property>
@@ -281,7 +287,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
+             <width>286</width>
              <height>157</height>
             </rect>
            </property>
@@ -368,6 +374,24 @@
            <string>Start Editing Layer</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QPushButton" name="LayerControlEdit">
+            <property name="text">
+             <string>Edit</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="LayerControlDraw">
+            <property name="text">
+             <string>Draw</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <widget class="QCheckBox" name="LayerControlSnapping">
@@ -713,8 +737,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>28</height>
+             <width>80</width>
+             <height>18</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_16"/>
