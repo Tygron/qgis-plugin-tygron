@@ -27,7 +27,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -114,38 +114,16 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QScrollArea" name="scrollArea">
-         <property name="widgetResizable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>352</width>
-            <height>173</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QTabWidget" name="attributeTabs">
-             <property name="currentIndex">
-              <number>1</number>
-             </property>
-             <widget class="QWidget" name="tab_2">
-              <attribute name="title">
-               <string>Tab 1</string>
-              </attribute>
-             </widget>
-             <widget class="QWidget" name="tab_3">
-              <attribute name="title">
-               <string>Tab 2</string>
-              </attribute>
-             </widget>
-            </widget>
-           </item>
-          </layout>
+        <widget class="QTabWidget" name="attributeTabs">
+         <widget class="QWidget" name="tab_2">
+          <attribute name="title">
+           <string>Tab 1</string>
+          </attribute>
+         </widget>
+         <widget class="QWidget" name="tab_3">
+          <attribute name="title">
+           <string>Tab 2</string>
+          </attribute>
          </widget>
         </widget>
        </item>

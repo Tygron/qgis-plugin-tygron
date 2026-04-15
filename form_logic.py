@@ -1,15 +1,25 @@
-from qgis.PyQt.QtWidgets import QComboBox,QTabWidget,QPushButton,QLineEdit,QWidget, QHBoxLayout,QVBoxLayout, QLabel,QSpacerItem,QScrollArea
+from qgis.PyQt.QtWidgets import QComboBox,QTabWidget,QPushButton,QLineEdit,QWidget, QHBoxLayout,QVBoxLayout, QLabel,QSpacerItem,QScrollArea,QSizePolicy
 from tygron.TygronClient.constants import *
 from qgis.utils import plugins
 
-def makeEntryForAttribute(attributeName : str,defaultValue : any,parent):
-    newHbox = QHBoxLayout(parent)
-    newLabel = QLabel(newHbox)
-    newSpacer = QSpacerItem(newHbox)
-    newValueItem = QLineEdit(newHbox)
+def makeEntryForAttribute(attributeName: str, defaultValue: any, parent_widget: QWidget):
+    row_container = QWidget(parent_widget)
+    layout = QHBoxLayout(row_container)
+    
+    label = QLabel(attributeName, row_container)
+    
+    spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+    
+    line_edit = QLineEdit(row_container)
+    line_edit.setText(str(defaultValue) if defaultValue is not None else "")
 
-    newLabel.setText(attributeName)
-    return newHbox
+    layout.addWidget(label)
+    layout.addItem(spacer) 
+    layout.addWidget(line_edit)
+
+    layout.setContentsMargins(5, 2, 5, 2)
+
+    return row_container
     
 
 
@@ -52,25 +62,31 @@ def buildings(dialog, layer, feature):
         feature["id"] = new_id
         
     def loadAttributes():
+        nonlocal function_data
+
+        print(function_data)
+        print(attribute_cat)
+
         attributeTabs.clear()
 
         for category_name in attribute_cat.keys():
-            # Maak een nieuwe container widget voor dit tabblad
             new_tab = QWidget()
             
-            scrollbox = QScrollArea(new_tab)
-            # Optioneel: Voeg een layout toe aan de tab om later widgets in te plaatsen
+
+            scrollLayout = QVBoxLayout(new_tab) 
+            scrollLayout.setContentsMargins(0, 0, 0, 0)
+
+            scrollbox = QScrollArea()
+            scrollLayout.addWidget(scrollbox)
+
             layout = QVBoxLayout(scrollbox)
             
             for attribute in attribute_cat[category_name]:
-                subvalue = makeEntryForAttribute(attribute,"NULL",scrollbox)
+                default_value = function_data["attributes"].get(attribute,"NULL")
+                subvalue = makeEntryForAttribute(attribute,default_value,scrollbox)
+                layout.addWidget(subvalue)
 
-            
-            # 3. Voeg het tabblad toe aan de QTabWidget met de naam van de categorie
-            attributeTabs.addTab(new_tab, category_name)
-
-        print(f"{len(attribute_cat)} thematische tabbladen gegenereerd.")
-        
+            attributeTabs.addTab(new_tab, category_name)        
 
     
     def on_tab_changed(index):
