@@ -82,6 +82,11 @@ class Session:
         constants.FUNCTIONS_TYPE = functions
             
         return functions
+    
+    def get_terrains(self):
+        terrains = self.client.apiGet(url = f"session/items/terraintypes/?f=JSON&token={self.api_key}")
+        constants.TERRAIN_TYPE = terrains
+        return terrains
 
 
     def get_wfs_uri(self, type_name):
