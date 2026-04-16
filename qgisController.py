@@ -239,8 +239,6 @@ class QGISController():
         config = layer.editFormConfig()
         config.setInitFunction("buildings_form_init")
 
-
-
     def loadWMSLayer(self,uri,QGISName):
         print(f"Loading new layer {QGISName} at {uri}")
         layer = QgsRasterLayer(uri, QGISName, "wms")

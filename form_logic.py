@@ -12,14 +12,14 @@ def makeEntryForAttribute(attributeName: str, defaultValue: any, parent_widget: 
     
     line_edit = QLineEdit(row_container)
     line_edit.setText(str(defaultValue) if defaultValue is not None else "")
-    line_edit.setName(attributeName)
+    line_edit.setObjectName(attributeName)
     layout.addWidget(label)
     layout.addItem(spacer) 
     layout.addWidget(line_edit)
 
     layout.setContentsMargins(5, 2, 5, 2)
 
-    return row_container
+    return row_container,line_edit
     
 
 
@@ -33,6 +33,7 @@ def buildings(dialog, layer, feature):
 
     attributeTabs = dialog.findChild(QTabWidget,"attributeTabs")
 
+    possible_fields = layer.fields().names()
     main_plugin = plugins.get('tygron')
     all_functions = main_plugin.client.constants.FUNCTIONS_TYPE
     attribute_cat = main_plugin.client.constants.BUILDING_ATTRIBUTE_GROUPING
@@ -43,9 +44,11 @@ def buildings(dialog, layer, feature):
     function_ids = {}
     function_codes = []
 
+    extra_attributes = {}
+
     new_id = main_plugin.client.apiGet(url=f"session/items/buildings/size/?f=JSON&token={main_plugin.client.session.api_key}")
 
-    print(new_id)
+    #print(new_id)
 
 
     def get(instanceName):
@@ -60,34 +63,44 @@ def buildings(dialog, layer, feature):
         feature["name"] = nameEntry.text()
         feature["type"] = "BUILDING"
         feature["id"] = new_id
+
+        for index in extra_attributes.keys():
+            value = extra_attributes[index].text()
+            feature.setAttribute(index, value)
         
     def loadAttributes():
         nonlocal function_data
-
-        print(function_data)
-        print(attribute_cat)
-
         attributeTabs.clear()
+        extra_attributes.clear()
 
         for category_name in attribute_cat.keys():
             new_tab = QWidget()
-            
-
-            scrollLayout = QVBoxLayout(new_tab) 
-            scrollLayout.setContentsMargins(0, 0, 0, 0)
+            tabLayout = QVBoxLayout(new_tab)
+            tabLayout.setContentsMargins(0, 0, 0, 0)
 
             scrollbox = QScrollArea()
-            scrollLayout.addWidget(scrollbox)
+            scrollbox.setWidgetResizable(True) 
+            tabLayout.addWidget(scrollbox)
 
-            layout = QVBoxLayout(scrollbox)
+            scrollContent = QWidget()
+            contentLayout = QVBoxLayout(scrollContent)
             
             for attribute in attribute_cat[category_name]:
-                default_value = function_data["attributes"].get(attribute,None)
-                if default_value is not None:
-                    subvalue = makeEntryForAttribute(attribute,default_value,scrollbox)
-                    layout.addWidget(subvalue)
+                if attribute in possible_fields:
+                    index = possible_fields.index(attribute)
+                    raw_val = function_data["attributes"].get(attribute,"NULL")
+                    default_value = (raw_val[0] if isinstance(raw_val, list) else raw_val) 
 
-            attributeTabs.addTab(new_tab, category_name)        
+                    if default_value is not None: 
+                        subvalue, line_edit = makeEntryForAttribute(attribute, default_value, scrollContent)
+                        
+                        extra_attributes[index] = line_edit
+                        contentLayout.addWidget(subvalue)
+
+            contentLayout.addStretch()
+            scrollbox.setWidget(scrollContent)
+
+            attributeTabs.addTab(new_tab, category_name)      
 
     
     def on_tab_changed(index):
@@ -95,7 +108,7 @@ def buildings(dialog, layer, feature):
         nonlocal function_data
 
         tab_name = tab_widget.tabText(index)
-        print(f"Tab gewisseld naar index {index}: {tab_name}")
+        #print(f"Tab gewisseld naar index {index}: {tab_name}")
         
         if tab_name != "General":
             selection = combo.currentText()
@@ -104,6 +117,10 @@ def buildings(dialog, layer, feature):
                 # update values
                 functionId = function_ids[selection]
                 function_data = main_plugin.client.apiGet(url = f"session/items/functions/{functionId}/?crs=3857&f=JSON&token={main_plugin.client.session.api_key}")
+
+                print(function_data["attributes"])
+                print("------")
+                print(possible_fields)
 
                 submitData()
                 loadAttributes()
