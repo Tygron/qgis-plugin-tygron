@@ -1,6 +1,9 @@
 from qgis.PyQt.QtWidgets import QComboBox,QTabWidget,QPushButton,QLineEdit,QWidget, QHBoxLayout,QVBoxLayout, QLabel,QSpacerItem,QScrollArea,QSizePolicy
 from tygron.TygronClient.constants import *
 from qgis.utils import plugins
+from pathlib import Path
+
+plugin_name = "qgis-plugin-tygron"
 
 def makeEntryForAttribute(attributeName: str, defaultValue: any, parent_widget: QWidget):
     row_container = QWidget(parent_widget)
@@ -35,7 +38,7 @@ def buildings(dialog, layer, feature):
     attributeTabs = dialog.findChild(QTabWidget,"attributeTabs")
 
     possible_fields = layer.fields().names()
-    main_plugin = plugins.get('tygron')
+    main_plugin = plugins.get(plugin_name)
     all_functions = main_plugin.client.constants.FUNCTIONS_TYPE
     all_types = main_plugin.client.constants.BUILDING_TYPES
     attribute_cat = main_plugin.client.constants.BUILDING_ATTRIBUTE_GROUPING
