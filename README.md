@@ -8,11 +8,10 @@ Seamlessly integrate the **Tygron Platform** with **QGIS**. This plugin allows y
 
 Follow these steps to manually add the plugin to your QGIS directory:
 
-1. **Download** the ZIP file containing the source code.
-2. **Extract** the contents into a folder.
-3. **Move** that folder to the following directory:
-> `C:\Users\[YourUser]\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins`
+1. **Download** the ZIP file found under [Releases].
+2. **Within QGIS** navigate to [Plugins] -> [Manage and Install Plugins] -> [Install from ZIP] and select the downloaded file.
 
+You may need to restart the application.
 
 
 ---
