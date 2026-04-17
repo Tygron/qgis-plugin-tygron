@@ -6,7 +6,7 @@
 name=Tygron
 qgisMinimumVersion=3.0
 description=Use Tygron's computing power inside of QGIS.
-version=0.1
+version=0.2
 author=Faris Bontje @ Tygron
 email=faris@tygron.com
 
