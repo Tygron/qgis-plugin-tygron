@@ -11,6 +11,7 @@ OVERLAYS_TYPE = [
 TERRAIN_TYPE = []
 FUNCTIONS_TYPE = []
 
+BUILDING_TYPES = ["BUILDING","ROAD","UNDERGROUND"]
 BUILDING_ATTRIBUTE_GROUPING = {
     "Building & Geometry": [
         "DEFAULT_FLOORS",
@@ -37,7 +38,7 @@ BUILDING_ATTRIBUTE_GROUPING = {
         "NORMAL_UNIT_SIZE_M2",
         "SOCIAL_UNIT_SIZE_M2"
     ],
-    "Traffic & Mobility": [
+    "Traffic": [
         "TRAFFIC_LANES",
         "MAX_SPEED_DYNAMIC",
         "JAM_FACTOR_CARS",
@@ -48,7 +49,7 @@ BUILDING_ATTRIBUTE_GROUPING = {
         "NUM_VANS",
         "NUM_LIGHT_VEHICLES_DYN"
     ],
-    "Hydraulic & Infrastructure": [
+    "Infrastructure": [
         "LENGTE",
         "BREEDTEOPENING",
         "HOOGTEOPENING",

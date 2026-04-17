@@ -67,7 +67,11 @@ class LayersPage:
         else:
             print("Snapping disabled.")
 
-            
+    def refreshLayer(self):
+        if self.focusedLayer is None:
+            return
+        self.controller.qgis.refresh_layer(self.focusedLayer)     
+
     def open(self,**kwargs):
         current = self.controller.iface.layerTreeView().currentLayer()
         self.setFocusedLayer(current)
@@ -83,6 +87,7 @@ class LayersPage:
         self.get("Commit").clicked.connect(self.commit)
         self.get("CancelButton").clicked.connect(self.cancelChanges)
         self.get("Snapping").stateChanged.connect(self.on_snap_toggle)
+        self.get("Refresh").clicked.connect(self.refreshLayer)
 
         self.get("Edit").clicked.connect(self.editMode)
         self.get("Draw").clicked.connect(self.drawMode)

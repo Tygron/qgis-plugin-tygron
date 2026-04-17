@@ -26,6 +26,7 @@ def makeEntryForAttribute(attributeName: str, defaultValue: any, parent_widget: 
 def buildings(dialog, layer, feature):   
     tab_widget = dialog.findChild(QTabWidget, "tabWidget")
     combo = dialog.findChild(QComboBox, "function")
+    typesCombo = dialog.findChild(QComboBox,"type")
     nameEntry = dialog.findChild(QLineEdit, "name")
 
     stakes = dialog.findChild(QComboBox, "owner")
@@ -36,6 +37,7 @@ def buildings(dialog, layer, feature):
     possible_fields = layer.fields().names()
     main_plugin = plugins.get('tygron')
     all_functions = main_plugin.client.constants.FUNCTIONS_TYPE
+    all_types = main_plugin.client.constants.BUILDING_TYPES
     attribute_cat = main_plugin.client.constants.BUILDING_ATTRIBUTE_GROUPING
 
 
@@ -61,7 +63,7 @@ def buildings(dialog, layer, feature):
         feature["function"] = combo.currentText()
         feature["owner"] = stakes.currentText()
         feature["name"] = nameEntry.text()
-        feature["type"] = "BUILDING"
+        feature["type"] = typesCombo.currentText()
         feature["id"] = new_id
 
         for index in extra_attributes.keys():
@@ -147,6 +149,14 @@ def buildings(dialog, layer, feature):
         val = feature.attribute("function")
         if val: 
             combo.setCurrentText(str(val))
+
+    if typesCombo:
+        typesCombo.clear()
+        typesCombo.addItems(all_types)
+        
+        val = feature.attribute("type")
+        if val: 
+            typesCombo.setCurrentText(str(val))
 
     if stakes:
         stakes.clear()

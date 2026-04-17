@@ -96,6 +96,11 @@ class QGISController():
         self.iface = iface
         pass
 
+    def refresh_layer(self,layer):
+        layer.dataProvider().forceReload()
+        layer.triggerRepaint()        
+        self.iface.layerTreeView().refreshLayerSymbology(layer.id())
+
     def enableVertexTool(self):
         vertex_tool_action = self.iface.mainWindow().findChild(QAction, 'mActionVertexTool')
         if vertex_tool_action:

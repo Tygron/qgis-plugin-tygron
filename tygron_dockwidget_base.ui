@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>341</width>
-    <height>263</height>
+    <width>343</width>
+    <height>292</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="LoginPage">
        <property name="enabled">
@@ -217,6 +217,14 @@
         </item>
         <item>
          <widget class="QPushButton" name="SessionImport">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+            <underline>false</underline>
+            <kerning>true</kerning>
+           </font>
+          </property>
           <property name="text">
            <string>Import Project</string>
           </property>
@@ -287,7 +295,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>286</width>
+             <width>292</width>
              <height>157</height>
             </rect>
            </property>
@@ -376,6 +384,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="LayerControlRefresh">
+          <property name="text">
+           <string>Refresh Layer</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
            <widget class="QPushButton" name="LayerControlEdit">
@@ -395,6 +410,9 @@
         </item>
         <item>
          <widget class="QCheckBox" name="LayerControlSnapping">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Enable grid snapping</string>
           </property>
@@ -737,7 +755,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>80</width>
+             <width>63</width>
              <height>18</height>
             </rect>
            </property>
