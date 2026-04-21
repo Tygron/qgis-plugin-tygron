@@ -2,6 +2,8 @@
 
 Seamlessly integrate the **Tygron Platform** with **QGIS**. This plugin allows you to stream environmental data layers directly into your GIS environment and perform live edits on project geometries using WFS-T.
 
+This application is offered as-is, under the MIT license. This application is not part of the core Tygron Platform technology.
+
 ---
 
 ## Installation
