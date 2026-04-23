@@ -69,6 +69,8 @@ class TygronClient():
         self.authentication_header = None
         self.authenticated = False
 
+    
+
     def fetch_account_details(self):
         if not self.authenticated:
             return
