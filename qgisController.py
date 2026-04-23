@@ -250,6 +250,7 @@ class QGISController():
         print(layer)
         self.addLayer(layer)
         return layer
+    
 
     def setup_custom_ui(self,fileName,layer):
         ui_path = os.path.normpath(os.path.join(plugin_dir, "AttributeForms", f"{fileName}.ui"))

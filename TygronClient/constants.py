@@ -11,6 +11,14 @@ OVERLAYS_TYPE = [
 TERRAIN_TYPE = []
 FUNCTIONS_TYPE = []
 
+TERRAIN_GROUPS = {
+    "Klei": ["klei", "nesvaag", "drechtvaag"],
+    "Zand": ["zand", "podzol", "enkeerd"],
+    "Veen": ["veen", "moerige", "petgaten"],
+    "Water": ["water", "beekdal", "slikvaag"],
+    "Infrastructuur": ["bebouwing", "dijk", "weg", "opgespoten"]
+}
+
 BUILDING_TYPES = ["BUILDING","ROAD","UNDERGROUND"]
 BUILDING_ATTRIBUTE_GROUPING = {
     "Building & Geometry": [

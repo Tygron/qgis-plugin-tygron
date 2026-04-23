@@ -1,9 +1,16 @@
-from qgis.PyQt.QtWidgets import QComboBox,QTabWidget,QPushButton,QLineEdit,QWidget, QHBoxLayout,QVBoxLayout, QLabel,QSpacerItem,QScrollArea,QSizePolicy
+from qgis.PyQt.QtWidgets import QDialog,QComboBox,QTabWidget,QPushButton,QLineEdit,QWidget, QHBoxLayout,QVBoxLayout, QLabel,QSpacerItem,QScrollArea,QSizePolicy
+from qgis.PyQt import uic
 from tygron.TygronClient.constants import *
 from qgis.utils import plugins
 from pathlib import Path
+import random,os,time
 
 plugin_name = "qgis-plugin-tygron"
+main_plugin = plugins.get(plugin_name)
+ui_path = main_plugin.controller.qgis.fetch_attributeForm("terrainTypeSelector")
+
+
+
 
 def makeEntryForAttribute(attributeName: str, defaultValue: any, parent_widget: QWidget):
     row_container = QWidget(parent_widget)
@@ -23,7 +30,63 @@ def makeEntryForAttribute(attributeName: str, defaultValue: any, parent_widget: 
     layout.setContentsMargins(5, 2, 5, 2)
 
     return row_container,line_edit
+
+main_plugin = plugins.get(plugin_name)
+
+FORM_CLASS, _ = uic.loadUiType(ui_path)
+
+class TerrainSelectorDialog(QDialog, FORM_CLASS):
+    def __init__(self, terrain_data, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+        self.selected_id = None
+        self.terrain_data = terrain_data
+        self.categories = list(main_plugin.client.constants.TERRAIN_GROUPS.keys())
+        self.catCombo = self.findChild(QComboBox, "catDropdown")
+        self.addCategories()
+
+    def addCategories(self):
+        self.catDropdown.addItems(self.categories)
+
+    def updateTypes(self):
+        selectedCategory = self.catDropdown.currentText()
+        tags = main_plugin.client.constants.TERRAIN_GROUPS.get(selectedCategory)
+        
+
+        
+
+
+
     
+def terrain(dialog, layer, feature): 
+    main_plugin = plugins.get(plugin_name)
+
+    openWidget = dialog.findChild(QPushButton,"openWidget")
+    submitButton = dialog.findChild(QPushButton,"SubmitButton")
+    nameEntry = dialog.findChild(QLineEdit,"nameEntry")
+    selectedType = None
+    new_id = main_plugin.client.apiGet(url=f"session/items/terrains/size/?f=JSON&token={main_plugin.client.session.api_key}")
+
+    
+
+    def onOpenWidget():
+        nonlocal selectedType
+        newPrompt = TerrainSelectorDialog(main_plugin.client.constants.TERRAIN_TYPE,dialog)
+        if newPrompt.exec_(): 
+            selectedType = newPrompt.selected_id
+            pass
+                
+
+    def onSubmit():
+        feature["name"] = nameEntry.text()
+        feature["type"] = "TERRAIN"
+        feature["id"] = new_id
+        feature["terrain_type"] = selectedType
+        pass
+
+    submitButton.clicked.connect(onSubmit)
+    openWidget.clicked.connect(onOpenWidget)
+
 
 
 def buildings(dialog, layer, feature):   
@@ -171,6 +234,9 @@ def buildings(dialog, layer, feature):
 
     submitBtn.clicked.connect(submitData)
     tab_widget.currentChanged.connect(on_tab_changed)
+
+
+
 
     
     
