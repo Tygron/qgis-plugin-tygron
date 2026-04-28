@@ -11,6 +11,11 @@ ui_path = main_plugin.controller.qgis.fetch_attributeForm("terrainTypeSelector")
 
 
 
+sortedTerrainTypes = main_plugin.client.constants.categorize_all_terrains()
+
+
+
+
 
 def makeEntryForAttribute(attributeName: str, defaultValue: any, parent_widget: QWidget):
     row_container = QWidget(parent_widget)
@@ -41,16 +46,28 @@ class TerrainSelectorDialog(QDialog, FORM_CLASS):
         self.setupUi(self)
         self.selected_id = None
         self.terrain_data = terrain_data
-        self.categories = list(main_plugin.client.constants.TERRAIN_GROUPS.keys())
+        self.categories = list(sortedTerrainTypes.keys())
         self.catCombo = self.findChild(QComboBox, "catDropdown")
         self.addCategories()
+        self.updateTypes()
+
+        self.catDropdown.currentTextChanged.connect(self.updateTypes)
+        self.selectDropdown.currentTextChanged.connect(self.setValue)
 
     def addCategories(self):
         self.catDropdown.addItems(self.categories)
 
+    def setValue(self):
+        self.selected_id = self.selectDropdown.currentText()
+
     def updateTypes(self):
         selectedCategory = self.catDropdown.currentText()
-        tags = main_plugin.client.constants.TERRAIN_GROUPS.get(selectedCategory)
+        tags = sortedTerrainTypes.get(selectedCategory)
+        
+        self.selectDropdown.clear()
+        self.selectDropdown.addItems(tags)
+
+        
         
 
         
@@ -176,7 +193,6 @@ def buildings(dialog, layer, feature):
         nonlocal function_data
 
         tab_name = tab_widget.tabText(index)
-        #print(f"Tab gewisseld naar index {index}: {tab_name}")
         
         if tab_name != "General":
             selection = combo.currentText()
@@ -185,10 +201,6 @@ def buildings(dialog, layer, feature):
                 # update values
                 functionId = function_ids[selection]
                 function_data = main_plugin.client.apiGet(url = f"session/items/functions/{functionId}/?crs=3857&f=JSON&token={main_plugin.client.session.api_key}")
-
-                print(function_data["attributes"])
-                print("------")
-                print(possible_fields)
 
                 submitData()
                 loadAttributes()

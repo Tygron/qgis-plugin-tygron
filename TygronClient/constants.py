@@ -19,6 +19,39 @@ TERRAIN_GROUPS = {
     "Infrastructuur": ["bebouwing", "dijk", "weg", "opgespoten"]
 }
 
+def get_category(name):
+    name = name.lower()
+    for cat, keywords in TERRAIN_GROUPS.items():
+        if any(key in name for key in keywords):
+            return cat
+    return "Overig"
+
+def categorize_all_terrains():
+    value_map = {f"{item.get('id')} - {item.get('name')}": str(item.get('id')) for item in TERRAIN_TYPE}
+   
+    indexed_data = {cat: [] for cat in TERRAIN_GROUPS.keys()}
+    indexed_data["Overig"] = []
+
+    all_keywords = [key for keys in TERRAIN_GROUPS.values() for key in keys]
+    
+    for item in value_map:
+        item_lower = item.lower()
+        found_category = False
+        
+        for cat, keywords in TERRAIN_GROUPS.items():
+            if any(keyword in item_lower for keyword in keywords):
+                indexed_data[cat].append(item)
+                found_category = True
+                break 
+        
+        if not found_category:
+            indexed_data["Overig"].append(item)
+
+    for cat in indexed_data:
+        indexed_data[cat].sort()
+
+    return indexed_data
+
 BUILDING_TYPES = ["BUILDING","ROAD","UNDERGROUND"]
 BUILDING_ATTRIBUTE_GROUPING = {
     "Building & Geometry": [
