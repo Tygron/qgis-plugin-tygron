@@ -2,17 +2,20 @@
 
 Seamlessly integrate the **Tygron Platform** with **QGIS**. This plugin allows you to stream environmental data layers directly into your GIS environment and perform live edits on project geometries using WFS-T.
 
+This plugin is offered as-is, under the MIT license. This plugin is not part of the core Tygron Platform technology.
+
+This plugin is currently in BETA, and is developed as a first demonstration of the possibilities of an integration between QGIS and the Tygron Platform. Please feel free to use it as an inspiration for your own use cases. 
+
 ---
 
 ## Installation
 
 Follow these steps to manually add the plugin to your QGIS directory:
 
-1. **Download** the ZIP file containing the source code.
-2. **Extract** the contents into a folder.
-3. **Move** that folder to the following directory:
-> `C:\Users\[YourUser]\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins`
+1. **Download** the ZIP file found under [Releases].
+2. **Within QGIS** navigate to [Plugins] -> [Manage and Install Plugins] -> [Install from ZIP] and select the downloaded file.
 
+You may need to restart the application.
 
 
 ---
