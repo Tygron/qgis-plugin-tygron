@@ -52,6 +52,8 @@ def categorize_all_terrains():
 
     return indexed_data
 
+DEFAULT_OVERLAYS = ["SATELLITE","SATELLITE_ORIGINAL","TOPOGRAPHIC","GRAY"]
+
 BUILDING_TYPES = ["BUILDING","ROAD","UNDERGROUND"]
 BUILDING_ATTRIBUTE_GROUPING = {
     "Building & Geometry": [
