@@ -67,14 +67,6 @@ class TerrainSelectorDialog(QDialog, FORM_CLASS):
         self.selectDropdown.clear()
         self.selectDropdown.addItems(tags)
 
-        
-        
-
-        
-
-
-
-    
 def terrain(dialog, layer, feature): 
     main_plugin = plugins.get(plugin_name)
 

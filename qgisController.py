@@ -12,12 +12,14 @@ from qgis.core import ( # type: ignore
     Qgis,
     QgsEditFormConfig,
     QgsNetworkAccessManager, 
-    QgsNetworkReplyContent
+    QgsNetworkReplyContent,
+    QgsRasterLayerTemporalProperties, 
+    QgsDateTimeRange
 )  
 from qgis.PyQt.QtWidgets import QAction
 
 from qgis.PyQt.QtWidgets import QMessageBox,QInputDialog # type: ignore
-from qgis.PyQt.QtCore import QTimer,QUrl, QEventLoop # type: ignore
+from qgis.PyQt.QtCore import QTimer,QUrl, QEventLoop,QDateTime # type: ignore
 from qgis.PyQt.QtGui import QColor # type: ignore
 from PyQt5.QtNetwork import QNetworkRequest
 import random,os,time
@@ -60,6 +62,13 @@ class QGISController():
             child = layout.takeAt(0)
             if child.widget():
                 child.widget().deleteLater()
+
+    def enable_temporal_layer(self,layer, start,end):
+        temporal_props = layer.temporalProperties()
+        temporal_props.setIsActive(True)
+        temporal_props.setFixedTemporalRange(QgsDateTimeRange(start, end))
+        layer.triggerRepaint()
+
 
     def apply_style_to_layer(self, layer, style_name="Buildings"):
         style_path = self.get_style_path(style_name)
@@ -250,6 +259,12 @@ class QGISController():
         print(layer)
         self.addLayer(layer)
         return layer
+    
+    def mark_layer_as_temporal(layer):
+        temporal_props = layer.temporalProperties()
+        temporal_props.setIsActive(True)
+
+
     
 
     def setup_custom_ui(self,fileName,layer):
