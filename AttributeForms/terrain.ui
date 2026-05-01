@@ -64,7 +64,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="selectedTextWidget">
        <property name="text">
         <string>[TypeName]</string>
        </property>

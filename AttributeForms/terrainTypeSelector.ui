@@ -63,7 +63,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="SubmitButton">
      <property name="text">
       <string>Submit</string>
      </property>
