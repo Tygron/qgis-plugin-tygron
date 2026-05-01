@@ -108,12 +108,15 @@ class OverlaysOverviewPage:
         for id in timestamps.keys():
 
             fullName = endlist[id].get("title")
+            tsCount = 0
 
             for iteration in timestamps[id]:
+                tsCount += 1
                 entry = timestamps[id][iteration]
                 entry["date"] = convertToQDateTime(entry["title"].replace(str(fullName),"")[2:-1])
 
             endlist[id]["timestamps"] = timestamps[id]
+            endlist[id]["iterations"] = tsCount
 
 
         return endlist
@@ -135,10 +138,15 @@ class OverlaysOverviewPage:
         self.controller.qgis.clearContainer(layout)
 
         available_overlays = self.sort_overlays(self.controller.client.session.fetch_available_overlays())
-        print(available_overlays)
         for overlayId in available_overlays:
             overlay = available_overlays[overlayId]
-            btn = QPushButton(f"{overlay.get("title")} ({overlay.get("name")})")
+
+            namestring = f"{overlay.get("title")} ({overlay.get("name")})"
+            iterations = overlay.get("iterations",None)
+            if iterations is not None:
+                namestring = f"{namestring} [{iterations} iterations]"
+
+            btn = QPushButton(namestring)
         
             btn.clicked.connect(lambda _, overlay=overlay: self.selectOverlay(overlay))   
 
