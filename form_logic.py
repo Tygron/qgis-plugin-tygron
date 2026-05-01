@@ -51,11 +51,18 @@ class TerrainSelectorDialog(QDialog, FORM_CLASS):
         self.addCategories()
         self.updateTypes()
 
+
         self.catDropdown.currentTextChanged.connect(self.updateTypes)
         self.selectDropdown.currentTextChanged.connect(self.setValue)
+        self.SubmitButton.clicked.connect(self.submitAndClose)
+
+    def submitAndClose(self):
+        self.accept()
 
     def addCategories(self):
         self.catDropdown.addItems(self.categories)
+        self.setValue()
+
 
     def setValue(self):
         self.selected_id = self.selectDropdown.currentText()
@@ -73,6 +80,7 @@ def terrain(dialog, layer, feature):
     openWidget = dialog.findChild(QPushButton,"openWidget")
     submitButton = dialog.findChild(QPushButton,"SubmitButton")
     nameEntry = dialog.findChild(QLineEdit,"nameEntry")
+    selectedText = dialog.findChild(QLabel,"selectedTextWidget")
     selectedType = None
     new_id = main_plugin.client.apiGet(url=f"session/items/terrains/size/?f=JSON&token={main_plugin.client.session.api_key}")
 
@@ -83,6 +91,7 @@ def terrain(dialog, layer, feature):
         newPrompt = TerrainSelectorDialog(main_plugin.client.constants.TERRAIN_TYPE,dialog)
         if newPrompt.exec_(): 
             selectedType = newPrompt.selected_id
+            selectedText.setText(selectedType)
             pass
                 
 
