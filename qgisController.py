@@ -14,7 +14,8 @@ from qgis.core import ( # type: ignore
     QgsNetworkAccessManager, 
     QgsNetworkReplyContent,
     QgsRasterLayerTemporalProperties, 
-    QgsDateTimeRange
+    QgsDateTimeRange,
+    QgsLayerTreeLayer
 )  
 from qgis.PyQt.QtWidgets import QAction
 
@@ -117,12 +118,16 @@ class QGISController():
     def enableAddFeature(self):
         self.iface.actionAddFeature().trigger()
 
-    def addLayer(self,layer):
+    def addLayer(self,layer,parent = None):
         print(layer.isValid())
         
-        if True: #layer.isValid():
+        if layer.isValid():
             
-            QgsProject.instance().addMapLayer(layer)
+            QgsProject.instance().addMapLayer(layer,parent is None)
+            if parent is not None:
+                layer_node = QgsLayerTreeLayer(layer)
+                parent.addChildNode(layer_node)
+
             return layer
         
     def classify(self, layer, field_name='function'):
@@ -253,11 +258,11 @@ class QGISController():
         config = layer.editFormConfig()
         config.setInitFunction("buildings_form_init")
 
-    def loadWMSLayer(self,uri,QGISName):
+    def loadWMSLayer(self,uri,QGISName,parentGroup = None):
         print(f"Loading new layer {QGISName} at {uri}")
         layer = QgsRasterLayer(uri, QGISName, "wms")
         print(layer)
-        self.addLayer(layer)
+        self.addLayer(layer,parentGroup)
         return layer
     
     def mark_layer_as_temporal(layer):

@@ -40,23 +40,28 @@ class OverlaysOverviewPage:
 
         root = QgsProject.instance().layerTreeRoot()
         group = root.insertGroup(0, title)
+        lastDuration = None
+        
 
         for iteration in timestamps:
             subLayer = timestamps[iteration]
 
             dateTime = subLayer.get("date")
             endTime = dateTime.addSecs(3600)
+            if lastDuration is not None:
+                endTime = dateTime.addSecs(lastDuration)
+
             nextLayer = timestamps.get(iteration+1,None)
             if nextLayer is not None:
-                endTime = nextLayer.get("date",endTime)
+                endTime = nextLayer.get("date",endTime).addMSecs(-1)
+                lastDuration = dateTime.secsTo(endTime)
 
             self.controller.qgis.refreshWmsCache(f"https://engine.tygron.com/web/wms?token={self.controller.client.session.api_key}")
-            result= self.controller.client.apiGet(url=f"https://engine.tygron.com/web/wms?REQUEST=GetCapabilities&token={self.controller.client.session.api_key}")
             uri = self.controller.client.session.get_wms_uri(f"{name}-{iteration}")
-            layer = self.controller.qgis.loadWMSLayer(uri,f"{title} - i{iteration}")
+            layer = self.controller.qgis.loadWMSLayer(uri,f"{title} - i{iteration}",group)
 
             self.controller.qgis.enable_temporal_layer(layer,dateTime,endTime)
-            group.addChildNode(root.findLayer(layer.id()))
+            
             
 
     def import_overlay(self,overlay):
