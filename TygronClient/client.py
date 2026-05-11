@@ -28,6 +28,7 @@ class TygronClient():
                 return response
         else:
             print(f"Error {response.status_code}")
+            
             return None
 
     def _url(self,append):
