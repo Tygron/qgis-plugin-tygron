@@ -83,7 +83,8 @@ def terrain(dialog, layer, feature):
     selectedText = dialog.findChild(QLabel,"selectedTextWidget")
     selectedType = None
     new_id = main_plugin.client.apiGet(url=f"session/items/terrains/size/?f=JSON&token={main_plugin.client.session.api_key}")
-
+    if new_id is None:
+        new_id = 0
     
 
     def onOpenWidget():
@@ -108,6 +109,7 @@ def terrain(dialog, layer, feature):
 
 
 def buildings(dialog, layer, feature):   
+    print(feature)
     tab_widget = dialog.findChild(QTabWidget, "tabWidget")
     combo = dialog.findChild(QComboBox, "function")
     typesCombo = dialog.findChild(QComboBox,"type")
@@ -133,7 +135,8 @@ def buildings(dialog, layer, feature):
     extra_attributes = {}
 
     new_id = main_plugin.client.apiGet(url=f"session/items/buildings/size/?f=JSON&token={main_plugin.client.session.api_key}")
-
+    if new_id is None:
+        new_id = 0
     #print(new_id)
 
 

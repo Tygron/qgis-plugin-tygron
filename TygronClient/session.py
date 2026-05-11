@@ -140,7 +140,7 @@ class Session:
     def fetch_available_overlays(self):
         fetched_xml = self.client.apiGet(url = f"https://engine.tygron.com/web/wms?REQUEST=GetCapabilities&token={self.api_key}",raw_url=True)
         if fetched_xml is None:
-            return
+            return []
         
         root = ET.fromstring(fetched_xml.content)
         namespace = {'wms': 'http://www.opengis.net/wms'}

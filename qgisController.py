@@ -94,6 +94,15 @@ class QGISController():
         settings.setValue("tygron/username", username)
         settings.setValue("tygron/password", password)
 
+    def save_key(self,key):
+        settings = QgsSettings()
+        settings.setValue("tygron/apikey", key)
+    def fetch_key(self):
+        settings = QgsSettings()
+        key = settings.value("tygron/apikey", "")
+        return key
+
+
     def load_credentials(self):
         settings = QgsSettings()
         username = settings.value("tygron/username", "")
@@ -173,11 +182,9 @@ class QGISController():
         return options[0]
 
     def commit_layer_edits(self, layer):
-        print("Comitting!")
         if layer.isEditable():
-            print("Editable!")
             success = layer.commitChanges()
-            print(success)
+
             if not success:
                 print(f"Error saving: {layer.commitErrors()}")
                 layer.rollBack()

@@ -3,6 +3,8 @@ from PyQt5.QtCore import QDateTime, QDate
 from qgis.core import QgsProject
 
 def convertToQDateTime(input):
+    print(input)
+    print(1234)
     format_string = "dd/MM HH:mm:ss"
     q_date_time = QDateTime.fromString(input, format_string)
 

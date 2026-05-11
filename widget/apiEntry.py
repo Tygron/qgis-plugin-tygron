@@ -18,10 +18,13 @@ class APIEntryPage:
         if (not success):
             self.controller.qgis.ErrorMessage("Could not validate token!")
         else:
+            self.controller.qgis.save_key(key)
             self.controller.switch_to_page(self.controller.session)
 
 
     def open(self,**kwargs):
+        saved_key = self.controller.qgis.fetch_key()
+        self.get("KeyEntry").setText(saved_key)
         pass
 
     def __init__(self,widget,controller):
