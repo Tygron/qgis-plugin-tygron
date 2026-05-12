@@ -47,4 +47,7 @@ To interact with a Tygron project, you need to authenticate via a **Session API 
 - Terrain
 
 * You may import any overlays from your project by navigating to Overlays, and selecting any layer you'd like to import.
+
 * Time based overlays from Tygron will be mapped to the QGIS Temporal Controller and can be played in sequence, it is recommended to set the Stepping Method to [Source Timestamps]
+
+* You can disable the Python Macro Prompt by 
