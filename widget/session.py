@@ -54,16 +54,7 @@ class SessionPage:
             self.controller.qgis.apply_style_to_layer(layer,"Terrain")
             self.controller.qgis.setup_custom_ui("terrain",layer)
 
-            #all_terrains = self.controller.client.constants.TERRAIN_TYPE
-            #value_map = {f"{item.get('id')} - {item.get('name')}": str(item.get('id')) for item in all_terrains}
-
-            #field_index = layer.fields().indexOf("terrain_type")
-            
-            #if field_index != -1:
-                #layer.setEditorWidgetSetup(field_index, QgsEditorWidgetSetup('ValueMap', {'map': value_map}))
-
         self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("terrains"),"Terrain Vector",classifyTerrain)
-
 
         self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("areas"),"Areas Vector")
 
