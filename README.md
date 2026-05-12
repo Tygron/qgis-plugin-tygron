@@ -50,4 +50,3 @@ To interact with a Tygron project, you need to authenticate via a **Session API 
 
 * Time based overlays from Tygron will be mapped to the QGIS Temporal Controller and can be played in sequence, it is recommended to set the Stepping Method to [Source Timestamps]
 
-* You can disable the Python Macro Prompt by 
