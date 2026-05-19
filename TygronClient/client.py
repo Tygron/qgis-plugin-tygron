@@ -19,6 +19,10 @@ class TygronClient():
     }
 
     session = None
+    on_error = None
+
+    def _set_error_method(self,newMethod):
+        self.on_error = newMethod
 
     def _process_fetch(self,response):
         if response.status_code == 200 or response.status_code == 204:
@@ -29,6 +33,9 @@ class TygronClient():
         else:
             print(f"Error {response.status_code}")
             
+            if self.on_error:
+                print(f"({response.status_code}) {response.text}")
+                self.on_error(f"({response.status_code}) {response.text}")
             return None
 
     def _url(self,append):
