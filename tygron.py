@@ -226,8 +226,9 @@ class Tygron:
             self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)
             self.dockwidget.show()
             self.client = TygronClient()
-
             self.controller = widgetController(self)
+
+            self.client._set_error_method(self.controller.qgis.ErrorMessage)
             
 
             

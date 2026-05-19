@@ -82,7 +82,6 @@ class QGISController():
                 if self.controller.iface:
                     self.controller.iface.layerTreeView().refreshLayerSymbology(layer.id())
                     return
-        print(f"Could not load style {style_name}")
         
 
     def get_style_path(self, style_name):
@@ -117,7 +116,7 @@ class QGISController():
 
     def refresh_layer(self,layer):
         layer.dataProvider().forceReload()
-        layer.triggerRepaint()        
+        layer.triggerRepaint()
         self.iface.layerTreeView().refreshLayerSymbology(layer.id())
 
     def enableVertexTool(self):
