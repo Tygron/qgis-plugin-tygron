@@ -31,11 +31,11 @@ class TygronClient():
             except:
                 return response
         else:
-            print(f"Error {response.status_code}")
-            
+            formatted_error = f"({response.status_code}) {response.text}"
+            print(formatted_error)
+
             if self.on_error:
-                print(f"({response.status_code}) {response.text}")
-                self.on_error(f"({response.status_code}) {response.text}")
+                self.on_error(formatted_error)
             return None
 
     def _url(self,append):

@@ -36,7 +36,7 @@ class SessionPage:
 
         def classifyBuildings(layer):
             self.controller.qgis.apply_style_to_layer(layer,"Buildings")
-            self.controller.qgis.setup_custom_ui("buildings",layer)
+            self.controller.qgis.setup_custom_ui(layer,"buildings")
 
             all_functions = self.controller.client.constants.FUNCTIONS_TYPE
             value_map = {f"{item.get('id')} - {item.get('name')}": str(item.get('id')) for item in all_functions}
@@ -52,7 +52,7 @@ class SessionPage:
 
         def classifyTerrain(layer):
             self.controller.qgis.apply_style_to_layer(layer,"Terrain")
-            self.controller.qgis.setup_custom_ui("terrain",layer)
+            self.controller.qgis.setup_custom_ui(layer,"terrain")
 
         self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("terrains"),"Terrain Vector",classifyTerrain)
 

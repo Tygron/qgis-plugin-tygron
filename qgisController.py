@@ -126,9 +126,7 @@ class QGISController():
     def enableAddFeature(self):
         self.iface.actionAddFeature().trigger()
 
-    def addLayer(self,layer,parent = None):
-        print(layer.isValid())
-        
+    def addLayer(self,layer,parent = None):        
         if layer.isValid():
             
             QgsProject.instance().addMapLayer(layer,parent is None)
@@ -187,6 +185,16 @@ class QGISController():
             if not success:
                 print(f"Error saving: {layer.commitErrors()}")
                 layer.rollBack()
+    
+    def runTask(self,statusMessage,runMethod,callback):
+        def completion(wasSuccess):
+            if task in self.tasks:
+                self.tasks.remove(task)
+            callback(wasSuccess)
+
+        task = PluginTask(statusMessage, runMethod, completion)
+        self.tasks.append(task)
+        QgsApplication.taskManager().addTask(task)
 
     def loadWFSVector(self, uri, QGISName, callback=None):
         def run():
@@ -278,7 +286,7 @@ class QGISController():
 
     
 
-    def setup_custom_ui(self,fileName,layer):
+    def setup_custom_ui(self,layer,fileName):
         ui_path = os.path.normpath(os.path.join(plugin_dir, "AttributeForms", f"{fileName}.ui"))
         ui_path = ui_path.replace("\\", "/")
         config = layer.editFormConfig()
