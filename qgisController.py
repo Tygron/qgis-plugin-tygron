@@ -230,7 +230,7 @@ class QGISController():
             config.setMode(QgsSnappingConfig.AllLayers) 
             config.setType(QgsSnappingConfig.VertexAndSegment) 
             config.setTolerance(10) 
-            config.setUnits(Qgis.MapToolUnit.Pixels) 
+            config.setUnits(Qgis.MapToolUnit.Pixels)
         
         QgsProject.instance().setSnappingConfig(config)
 
