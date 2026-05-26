@@ -93,7 +93,7 @@ def terrain(dialog, layer, feature):
         if newPrompt.exec_(): 
             selectedType = newPrompt.selected_id
             selectedText.setText(selectedType)
-            pass
+            
                 
 
     def onSubmit():
@@ -101,7 +101,7 @@ def terrain(dialog, layer, feature):
         feature["type"] = "TERRAIN"
         feature["id"] = new_id
         feature["terrain_type"] = selectedType
-        pass
+        
 
     submitButton.clicked.connect(onSubmit)
     openWidget.clicked.connect(onOpenWidget)
@@ -223,30 +223,32 @@ def buildings(dialog, layer, feature):
     for stakeholder in main_plugin.client.session.stakeholders:
         stakeholders.append(f"{stakeholder.get("id")}_{stakeholder.get("name")}")
 
-    
-    if combo:
-        combo.clear()
-        combo.addItems(function_codes)
+    attributesMap = feature.attributeMap()
+    if feature and (len(attributesMap)>0):
         
-        val = feature.attribute("function")
-        if val: 
-            combo.setCurrentText(str(val))
+        if combo:
+            combo.clear()
+            combo.addItems(function_codes)
+            
+            val = feature.attribute("function")
+            if val: 
+                combo.setCurrentText(str(val))
 
-    if typesCombo:
-        typesCombo.clear()
-        typesCombo.addItems(all_types)
-        
-        val = feature.attribute("type")
-        if val: 
-            typesCombo.setCurrentText(str(val))
+        if typesCombo:
+            typesCombo.clear()
+            typesCombo.addItems(all_types)
+            
+            val = feature.attribute("type")
+            if val: 
+                typesCombo.setCurrentText(str(val))
 
-    if stakes:
-        stakes.clear()
-        stakes.addItems(stakeholders)
-        
-        val = feature.attribute("owner")
-        if val: 
-            stakes.setCurrentText(str(val))
+        if stakes:
+            stakes.clear()
+            stakes.addItems(stakeholders)
+            
+            val = feature.attribute("owner")
+            if val: 
+                stakes.setCurrentText(str(val))
 
     submitBtn.clicked.connect(submitData)
     tab_widget.currentChanged.connect(on_tab_changed)
