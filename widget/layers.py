@@ -63,9 +63,9 @@ class LayersPage:
     def on_snap_toggle(self,state):
         is_enabled = state == 2
         if is_enabled:
-            print("Snapping has been enabled.")
+            self.controller.qgis.toggle_snapping(True)
         else:
-            print("Snapping disabled.")
+            self.controller.qgis.toggle_snapping(False)
 
     def refreshLayer(self):
         if self.focusedLayer is None:

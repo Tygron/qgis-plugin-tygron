@@ -15,7 +15,8 @@ from qgis.core import ( # type: ignore
     QgsNetworkReplyContent,
     QgsRasterLayerTemporalProperties, 
     QgsDateTimeRange,
-    QgsLayerTreeLayer
+    QgsLayerTreeLayer,
+    QgsSnappingConfig,
 )  
 from qgis.PyQt.QtWidgets import QAction
 
@@ -218,6 +219,21 @@ class QGISController():
         task = PluginTask(f"Loading WFS: '{QGISName}'", run, complete)
         self.tasks.append(task)
         QgsApplication.taskManager().addTask(task)
+
+    def toggle_snapping(self, checked):
+        
+        config = QgsProject.instance().snappingConfig()
+        
+        config.setEnabled(checked)
+        
+        if checked:
+            config.setMode(QgsSnappingConfig.AllLayers) 
+            config.setType(QgsSnappingConfig.VertexAndSegment) 
+            config.setTolerance(10) 
+            config.setUnits(Qgis.MapToolUnit.Pixels) 
+        
+        QgsProject.instance().setSnappingConfig(config)
+
 
     def validate_layer_changes(self,layer):
         for feature in layer.getFeatures():

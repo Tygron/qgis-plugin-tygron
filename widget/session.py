@@ -38,16 +38,6 @@ class SessionPage:
             self.controller.qgis.apply_style_to_layer(layer,"Buildings")
             self.controller.qgis.setup_custom_ui(layer,"buildings")
 
-            all_functions = self.controller.client.constants.FUNCTIONS_TYPE
-            value_map = {f"{item.get('id')} - {item.get('name')}": str(item.get('id')) for item in all_functions}
-
-            field_index = layer.fields().indexOf("function")
-            
-            if field_index != -1:
-                layer.setEditorWidgetSetup(field_index, QgsEditorWidgetSetup('ValueMap', {'map': value_map}))
-
-
-
         self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("buildings"),"Buildings Vector",classifyBuildings)
 
         def classifyTerrain(layer):
