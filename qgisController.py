@@ -178,6 +178,23 @@ class QGISController():
         if ok and item:
             return item
         return options[0]
+    
+    def set_layer_order(self,desired_order_layers):
+        
+        project = QgsProject.instance()
+        layer_manager = project.layerOrderManager()
+        
+        layer_manager.setHasCustomLayerOrder(True)
+        
+        custom_order_ids = [layer.id() for layer in desired_order_layers if layer.isValid()]
+
+        current_order = layer_manager.customLayerOrder()
+        for layer_id in current_order:
+            if layer_id not in custom_order_ids:
+                custom_order_ids.append(layer_id)
+                
+        layer_manager.setCustomLayerOrder(custom_order_ids)
+        QgsProject.instance().viewManager().invalidateCanvas()
 
     def commit_layer_edits(self, layer):
         if layer.isEditable():
