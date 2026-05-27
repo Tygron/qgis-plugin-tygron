@@ -181,9 +181,10 @@ class QGISController():
 
     def commit_layer_edits(self, layer):
         if layer.isEditable():
+            localcheck,response = self.validate_layer_changes(layer)
             success = layer.commitChanges()
 
-            if not success:
+            if not success or not localcheck:
                 print(f"Error saving: {layer.commitErrors()}")
                 layer.rollBack()
     
@@ -237,10 +238,14 @@ class QGISController():
 
     def validate_layer_changes(self,layer):
         for feature in layer.getFeatures():
-            if not feature.geometry().isGeosValid():
-                self.ErrorMessage("Could not submit layer changes!")
-                return False
-        return True
+            geom = feature.geometry()
+            if not geom.isGeosValid():
+                error_msg = geom.validateGeometry()
+
+                self.ErrorMessage(f"Could not submit layer changes! - (id{feature.id()}) {error_msg}")
+                return False, error_msg
+
+        return True, "Changes passed succesfully!"
     
     def enable_topology(self):
         project = QgsProject.instance()    
