@@ -31,28 +31,39 @@ class SessionPage:
     def importProject(self):
         self.controller.client.session.get_functions()
         self.controller.client.session.get_terrains()
+        orderlist = [0,0,0,0,0]
 
-        self.controller.qgis.loadWMSLayer(self.controller.client.session.get_wms_uri("GRAY"),"GrayLayer")
+        graylayer = self.controller.qgis.loadWMSLayer(self.controller.client.session.get_wms_uri("GRAY"),"GrayLayer")
+        def setOrder(layer,order):
+            orderlist[order] = layer
+            if len(orderlist) == 5:
+                self.controller.qgis.set_layer_order(orderlist)
+        def processareas(layer):
+            setOrder(layer,0)
+
 
         def classifyBuildings(layer):
             self.controller.qgis.apply_style_to_layer(layer,"Buildings")
             self.controller.qgis.setup_custom_ui(layer,"buildings")
+            setOrder(layer,2)
 
         self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("buildings"),"Buildings Vector",classifyBuildings)
 
         def classifyTerrain(layer):
             self.controller.qgis.apply_style_to_layer(layer,"Terrain")
             self.controller.qgis.setup_custom_ui(layer,"terrain")
+            setOrder(layer,3)
 
         self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("terrains"),"Terrain Vector",classifyTerrain)
 
-        self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("areas"),"Areas Vector")
+        self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("areas"),"Areas Vector",processareas)
 
         def classifyNeighborhoods(layer):
             self.controller.qgis.apply_style_to_layer(layer,"Neighborhoods")
             self.controller.qgis.classify(layer,"name")
-
+            setOrder(layer,1)
         self.controller.qgis.loadWFSVector(self.controller.client.session.get_wfs_uri("neighborhoods"),"Neighborhoods Vector",classifyNeighborhoods)
+        setOrder(graylayer,4)
 
 
 
@@ -62,8 +73,8 @@ class SessionPage:
 
         self.get("ReturnButton").clicked.connect(self.returnToHome)
         self.get("Overlays").clicked.connect(self.toOverlays)
-        self.get("LayerButton").clicked.connect(self.toLayers)
-        self.get("Measures").clicked.connect(self.toMeasures)
+        #self.get("LayerButton").clicked.connect(self.toLayers)
+        #self.get("Measures").clicked.connect(self.toMeasures)
         self.get("EditButton").clicked.connect(self.toEdits)
         self.get("Import").clicked.connect(self.importProject)
 
