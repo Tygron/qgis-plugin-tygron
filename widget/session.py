@@ -37,7 +37,8 @@ class SessionPage:
         def setOrder(layer,order):
             orderlist[order] = layer
             if len(orderlist) == 5:
-                self.controller.qgis.set_layer_order(orderlist)
+                #self.controller.qgis.set_layer_order(orderlist)
+                pass
         def processareas(layer):
             setOrder(layer,0)
 
