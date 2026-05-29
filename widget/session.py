@@ -31,13 +31,13 @@ class SessionPage:
     def importProject(self):
         self.controller.client.session.get_functions()
         self.controller.client.session.get_terrains()
-        orderlist = [0,0,0,0,0]
+        orderlist = [None] * 5
 
         graylayer = self.controller.qgis.loadWMSLayer(self.controller.client.session.get_wms_uri("GRAY"),"GrayLayer")
         def setOrder(layer,order):
             orderlist[order] = layer
-            if len(orderlist) == 5:
-                #self.controller.qgis.set_layer_order(orderlist)
+            if None not in orderlist:
+                self.controller.qgis.set_layer_order(orderlist)
                 pass
         def processareas(layer):
             setOrder(layer,0)

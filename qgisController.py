@@ -187,15 +187,7 @@ class QGISController():
         
         root.setHasCustomLayerOrder(True)
         
-        custom_order_ids = [layer.id() for layer in desired_order_layers if desired_order_layers[layer].isValid()]
-
-        current_order = root.customLayerOrder()
-        
-        for layer_id in current_order:
-            if layer_id not in custom_order_ids:
-                custom_order_ids.append(layer_id)
-                
-        root.setCustomLayerOrder(custom_order_ids)
+        root.setCustomLayerOrder(desired_order_layers)
         
         if hasattr(project, 'viewManager'):
             project.viewManager().invalidateCanvas()
