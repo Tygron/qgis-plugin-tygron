@@ -245,6 +245,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="SessionTestButton">
+          <property name="text">
+           <string>Run Plugin Test</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="SessionReturnButton">
           <property name="enabled">
            <bool>true</bool>
@@ -275,8 +282,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>157</height>
+             <width>305</width>
+             <height>183</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">

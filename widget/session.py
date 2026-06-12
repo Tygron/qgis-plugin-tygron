@@ -27,6 +27,8 @@ class SessionPage:
         self.controller.switch_to_page(self.controller.measures)
     def toEdits(self):
         self.controller.switch_to_page(self.controller.layers)
+    def runTest(self):
+        pass
 
     def importProject(self):
         self.controller.client.session.get_functions()
@@ -75,7 +77,7 @@ class SessionPage:
         self.get("ReturnButton").clicked.connect(self.returnToHome)
         self.get("Overlays").clicked.connect(self.toOverlays)
         #self.get("LayerButton").clicked.connect(self.toLayers)
-        #self.get("Measures").clicked.connect(self.toMeasures)
+        self.get("TestButton").clicked.connect(self.runTest)
         self.get("EditButton").clicked.connect(self.toEdits)
         self.get("Import").clicked.connect(self.importProject)
 
