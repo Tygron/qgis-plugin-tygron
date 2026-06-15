@@ -20,7 +20,7 @@ from qgis.core import ( # type: ignore
 )  
 from qgis.PyQt.QtWidgets import QAction
 
-from qgis.PyQt.QtWidgets import QMessageBox,QInputDialog # type: ignore
+from qgis.PyQt.QtWidgets import QMessageBox,QInputDialog,QDialog # type: ignore
 from qgis.PyQt.QtCore import QTimer,QUrl, QEventLoop,QDateTime # type: ignore
 from qgis.PyQt.QtGui import QColor # type: ignore
 from PyQt5.QtNetwork import QNetworkRequest
