@@ -25,6 +25,8 @@ source = os.path.dirname(os.path.dirname(__file__))
 test_input_prompt, _ = uic.loadUiType(os.path.join(source, 'testapiprompt.ui'))
 test_result_prompt, _ = uic.loadUiType(os.path.join(source, 'testresults.ui'))
 
+ 
+ 
 class TestAPIInputDialog(QDialog, test_input_prompt):
     def __init__(self, plugin ,parent=None):
         super().__init__(parent)
@@ -75,10 +77,6 @@ class TestResultDialog(QDialog, test_result_prompt):
         self.plugin = plugin
         self.results.setText(results)
         
-
-         
-        
-
 class widgetController:
 
     widget = None
